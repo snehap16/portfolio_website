@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-        content="Sneha Pandey is a technical writer with 8+ years of experience creating product documentation, help content, and developer resources.">
+        content="Sneha Pandey is a technical writer who creates clear product documentation, help content, and developer resources.">
     <meta property="og:title" content="Sneha Pandey | Technical Writer" />
     <meta property="og:description"
-        content="Sneha Pandey is a technical writer with 8+ years of experience creating product documentation, help content, and developer resources." />
+        content="Sneha Pandey is a technical writer who creates clear product documentation, help content, and developer resources." />
     <meta property="og:url" content="https://snehapandey.com" />
     <meta property="og:image" content="https://snehapandey.com/og-image.png" />
     <meta property="og:type" content="website" />
@@ -17,6 +17,8 @@
     <style>
         :root {
             color-scheme: dark;
+            --font-body: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-display: Georgia, "Times New Roman", serif;
             --page: #0b1020;
             --page-glow: #121b36;
             --surface: #121a2d;
@@ -71,7 +73,7 @@
                 linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
                 var(--page);
             background-size: auto, 44px 44px, 44px 44px, auto;
-            font: 15px/1.65 "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            font: 15px/1.65 var(--font-body);
             transition: background-color .25s ease, color .25s ease;
         }
 
@@ -204,7 +206,6 @@
         .icon-button,
         .primary-button,
         .quiet-button,
-        .filter-button,
         .role-tools button {
             border: 1px solid var(--line);
             cursor: pointer;
@@ -263,27 +264,6 @@
             border-radius: 50%;
             box-shadow: 0 0 0 30px color-mix(in srgb, var(--line) 50%, transparent), 0 0 0 60px color-mix(in srgb, var(--line) 28%, transparent);
             opacity: .7;
-        }
-
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-            margin: 0 0 20px;
-            color: var(--mint);
-            font-size: 11px;
-            font-weight: 750;
-            letter-spacing: .14em;
-            text-transform: uppercase;
-        }
-
-        .eyebrow::before {
-            content: "";
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--mint);
-            box-shadow: 0 0 16px var(--mint);
         }
 
         h1,
@@ -423,33 +403,6 @@
             border-radius: 2px;
             background: var(--accent);
             transform: rotate(45deg);
-        }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 28px;
-        }
-
-        .stat {
-            padding: 13px 15px;
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            background: color-mix(in srgb, var(--surface) 72%, transparent);
-        }
-
-        .stat strong {
-            display: block;
-            color: var(--text);
-            font-size: 19px;
-            letter-spacing: -.04em;
-        }
-
-        .stat span {
-            display: block;
-            color: var(--faint);
-            font-size: 10px;
         }
 
         .quest-section {
@@ -861,83 +814,6 @@
             text-align: center;
         }
 
-        .skills-panel {
-            padding: 22px;
-            border: 1px solid var(--line);
-            border-radius: 18px;
-            background: linear-gradient(145deg, var(--surface-raised), var(--surface));
-        }
-
-        .filter-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 22px;
-        }
-
-        .filter-button {
-            padding: 8px 12px;
-            border-radius: 999px;
-            color: var(--muted);
-            background: transparent;
-            font-size: 11px;
-            font-weight: 650;
-        }
-
-        .filter-button:hover {
-            color: var(--text);
-            border-color: var(--accent);
-        }
-
-        .filter-button[aria-pressed="true"] {
-            border-color: transparent;
-            color: #0b1020;
-            background: var(--mint);
-        }
-
-        .skill-groups {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 12px;
-        }
-
-        .skill-group {
-            padding: 17px;
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            background: var(--surface);
-        }
-
-        .skill-group h3 {
-            margin: 0 0 13px;
-            color: var(--muted);
-            font-size: 11px;
-            letter-spacing: .05em;
-            text-transform: uppercase;
-        }
-
-        .skill-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 7px;
-        }
-
-        .skill-chip {
-            display: inline-flex;
-            padding: 6px 9px;
-            border: 1px solid var(--line);
-            border-radius: 7px;
-            color: var(--text);
-            background: var(--surface-raised);
-            font-size: 10px;
-            line-height: 1.3;
-        }
-
-        .skill-group[hidden],
-        .skill-chip[hidden] {
-            display: none;
-        }
-
         .closing-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1140,22 +1016,6 @@
                 font-size: 14px;
             }
 
-            .hero-stats {
-                gap: 7px;
-            }
-
-            .stat {
-                padding: 10px;
-            }
-
-            .stat strong {
-                font-size: 16px;
-            }
-
-            .stat span {
-                font-size: 9px;
-            }
-
             .section {
                 padding: 26px 0 56px;
             }
@@ -1204,13 +1064,8 @@
                 padding: 0 15px 15px;
             }
 
-            .skill-groups,
             .closing-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .skills-panel {
-                padding: 15px;
             }
 
             .footer {
@@ -1228,6 +1083,7 @@
                 transition-duration: .01ms !important;
                 animation-duration: .01ms !important;
             }
+
         }
 
         @media print {
@@ -1263,7 +1119,6 @@
             .quest-section,
             .role-tools,
             .role-search,
-            .filter-row,
             .footer {
                 display: none !important;
             }
@@ -1286,10 +1141,6 @@
                 font-size: 34pt;
             }
 
-            .hero-stats {
-                margin-top: 14px;
-            }
-
             .section {
                 padding: 20px 0;
                 break-inside: avoid;
@@ -1297,16 +1148,12 @@
 
             .role,
             .info-card,
-            .skill-group,
-            .skills-panel,
             .hero-card {
                 box-shadow: none;
                 break-inside: avoid;
             }
 
-            .role[hidden],
-            .skill-chip[hidden],
-            .skill-group[hidden] {
+            .role[hidden] {
                 display: block !important;
             }
 
@@ -1329,10 +1176,6 @@
             .role-content ul {
                 gap: 4px;
                 font-size: 9pt;
-            }
-
-            .skill-groups {
-                grid-template-columns: 1fr 1fr;
             }
 
             .closing-grid {
@@ -1363,7 +1206,7 @@
             --accent: #f47e63;
             --accent-strong: #164d4c;
             --mint: #d3e963;
-            --gold: #f1b34f;
+            --gold: var(--mint);
             --shadow: 0 22px 55px rgba(37, 55, 48, .13);
             --grid-line: rgba(23, 60, 59, .055);
             --rail-width: 272px;
@@ -1382,7 +1225,7 @@
             --accent: #ff947c;
             --accent-strong: #184f4e;
             --mint: #d3e963;
-            --gold: #f1c36d;
+            --gold: var(--mint);
             --shadow: 0 22px 55px rgba(0, 0, 0, .24);
             --grid-line: rgba(232, 241, 220, .045);
         }
@@ -1395,7 +1238,7 @@
             color: var(--text);
             background: radial-gradient(var(--grid-line) .8px, transparent .8px), radial-gradient(ellipse at 86% 0%, var(--page-glow), transparent 34rem), var(--page);
             background-size: 19px 19px, auto, auto;
-            font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: var(--font-body);
         }
 
         :focus-visible {
@@ -1447,7 +1290,6 @@
             transform: rotate(-5deg);
         }
 
-        .rail-caption,
         .rail-nav-label {
             margin: 0 0 8px;
             color: var(--faint);
@@ -1501,29 +1343,69 @@
             margin: 23px 0 29px;
         }
 
-        .rail-contact a {
+        .rail-email-contact {
+            position: relative;
+            display: inline-flex;
+        }
+
+        .rail-contact a,
+        .rail-contact button {
             display: inline-flex;
             min-height: 38px;
+            width: 42px;
             align-items: center;
             justify-content: center;
-            padding: 0 12px;
+            padding: 0;
             border: 1px solid var(--line);
             border-radius: 999px;
             color: var(--text);
             background: var(--surface);
+            font-family: inherit;
             font-size: 11px;
             font-weight: 750;
             text-decoration: none;
+            cursor: pointer;
             transition: transform .2s ease, background .2s ease;
         }
 
-        .rail-contact a:first-child {
-            border-color: var(--text);
-            color: var(--page);
-            background: var(--text);
+        .rail-contact .social-logo {
+            display: block;
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
         }
 
-        .rail-contact a:hover {
+        .rail-contact .rail-email-address {
+            position: absolute;
+            z-index: 20;
+            top: calc(100% + 8px);
+            left: 0;
+            display: block;
+            width: max-content;
+            max-width: calc(100vw - 32px);
+            min-height: 0;
+            padding: 9px 11px;
+            border: 1px solid var(--line);
+            border-radius: 9px;
+            color: var(--text);
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            font-size: 11px;
+            font-weight: 650;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .rail-contact .rail-email-address[hidden] {
+            display: none;
+        }
+
+        [data-theme="night"] .rail-contact .github-logo {
+            filter: invert(1);
+        }
+
+        .rail-contact a:hover,
+        .rail-contact button:hover {
             transform: translateY(-2px);
         }
 
@@ -1537,6 +1419,7 @@
         }
 
         .profile-nav a {
+            position: relative;
             display: flex;
             min-height: 42px;
             align-items: center;
@@ -1547,7 +1430,28 @@
             font-size: 12px;
             font-weight: 700;
             text-decoration: none;
-            transition: color .18s ease, background .18s ease;
+            transition: color .18s ease, background .18s ease, transform .2s ease;
+        }
+
+        .profile-nav a::after {
+            position: absolute;
+            right: 11px;
+            bottom: 5px;
+            left: 11px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent), var(--mint));
+            content: "";
+            opacity: .8;
+            pointer-events: none;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .25s ease;
+        }
+
+        .profile-nav a:hover::after,
+        .profile-nav a:focus-visible::after,
+        .profile-nav a[aria-current="location"]::after {
+            transform: scaleX(1);
         }
 
         .profile-nav a span {
@@ -1566,18 +1470,6 @@
             color: var(--accent);
         }
 
-        .rail-footnote {
-            margin: auto 0 0;
-            padding-top: 18px;
-            border-top: 1px solid var(--line);
-            color: var(--faint);
-            font-size: 10px;
-            font-weight: 750;
-            letter-spacing: .08em;
-            line-height: 1.7;
-            text-transform: uppercase;
-        }
-
         .page-shell {
             min-height: 100vh;
             margin-left: var(--rail-width);
@@ -1585,29 +1477,47 @@
         }
 
         .site-controls {
+            position: fixed;
+            z-index: 50;
+            top: 10px;
+            right: 12px;
             display: flex;
-            max-width: 1180px;
-            justify-content: flex-end;
-            gap: 8px;
-            margin: 0 auto;
+            gap: 4px;
+            padding: 4px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: color-mix(in srgb, var(--surface) 88%, transparent);
         }
 
         .icon-button,
         .primary-button,
         .quiet-button,
-        .filter-button,
         .role-tools button {
             border: 1px solid var(--line);
             transition: transform .2s ease, color .2s ease, background .2s ease, border-color .2s ease;
         }
 
+        .icon-button:hover,
+        .quiet-button:hover,
+        .role-tools button:hover {
+            transform: translateY(-2px);
+        }
+
         .icon-button {
-            min-height: 35px;
-            border-radius: 999px;
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            min-height: 32px;
+            padding: 0;
+            border-radius: 50%;
             color: var(--muted);
             background: var(--surface);
-            font-size: 10px;
+            font-size: 0;
             font-weight: 700;
+        }
+
+        .icon-button .button-label {
+            display: none;
         }
 
         .icon-button svg {
@@ -1633,36 +1543,23 @@
             align-items: center;
             padding: 62px 0 55px;
             border-bottom: 1px solid var(--line);
+            background:
+                radial-gradient(ellipse at 12% 20%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 36%),
+                radial-gradient(ellipse at 86% 28%, color-mix(in srgb, var(--mint) 7%, transparent), transparent 32%);
         }
 
         .hero::after {
             display: none;
         }
 
-        .eyebrow {
-            gap: 8px;
-            margin-bottom: 19px;
-            color: var(--accent-strong);
-            font-size: 10px;
-            font-weight: 800;
-            letter-spacing: .15em;
-        }
-
-        .eyebrow::before {
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            box-shadow: none;
-        }
-
         h1 {
             max-width: 610px;
             margin-bottom: 20px;
-            font-family: Georgia, "Times New Roman", serif;
+            font-family: var(--font-display);
             font-size: clamp(48px, 6.2vw, 82px);
             font-weight: 500;
             letter-spacing: -.075em;
-            line-height: .98;
+            line-height: 1.08;
         }
 
         h1 .accent {
@@ -1675,6 +1572,8 @@
         }
 
         .hero-copy {
+            position: relative;
+            z-index: 2;
             max-width: 540px;
             color: var(--muted);
             font-size: 16px;
@@ -1711,154 +1610,237 @@
             background: transparent;
         }
 
-        .hero-stats {
-            gap: 0;
-            margin-top: 32px;
-            border-top: 1px solid var(--line);
-        }
-
-        .stat {
-            padding: 13px 10px 0 0;
-            border: 0;
-            border-radius: 0;
-            background: transparent;
-        }
-
-        .stat+.stat {
-            padding-left: 12px;
-            border-left: 1px solid var(--line);
-        }
-
-        .stat strong {
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: 23px;
-            font-weight: 500;
-        }
-
-        .stat span {
-            color: var(--faint);
-            font-size: 9px;
-        }
-
         .hero-art {
             position: relative;
             display: grid;
             min-height: 410px;
             place-items: center;
             overflow: hidden;
-            border: 1px solid rgba(23, 60, 59, .12);
-            border-radius: 46% 46% 13px 13px / 21% 21% 13px 13px;
-            background: radial-gradient(circle at 50% 20%, rgba(255, 255, 255, .13) 0 2px, transparent 3px), var(--accent-strong);
-            background-size: 17px 17px, auto;
+            border: 1px solid color-mix(in srgb, var(--mint) 32%, var(--line));
+            border-radius: 18px 110px 18px 18px;
+            background:
+                radial-gradient(ellipse at 76% 18%, color-mix(in srgb, var(--mint) 32%, transparent), transparent 40%),
+                radial-gradient(ellipse at 20% 85%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 48%),
+                linear-gradient(145deg, var(--accent-strong), color-mix(in srgb, var(--accent-strong) 72%, var(--accent)));
             box-shadow: var(--shadow);
+            isolation: isolate;
+            transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
         }
 
-        .art-sheet {
+        .hero-art::before {
+            position: absolute;
+            z-index: 0;
+            top: -19%;
+            right: -17%;
+            width: 75%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: radial-gradient(circle, color-mix(in srgb, var(--mint) 34%, transparent), transparent 68%);
+            content: "";
+            filter: blur(10px);
+            pointer-events: none;
+            animation: hero-glow-drift 12s ease-in-out infinite alternate;
+        }
+
+        .hero-art:hover {
+            border-color: color-mix(in srgb, var(--mint) 62%, var(--line));
+            box-shadow: 0 28px 65px color-mix(in srgb, var(--accent-strong) 28%, transparent);
+            transform: translateY(-3px);
+        }
+
+        .signal-orbit {
+            position: absolute;
+            z-index: -1;
+            border: 1px solid color-mix(in srgb, var(--mint) 24%, transparent);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .signal-orbit-one {
+            top: 8%;
+            left: 15%;
+            width: 72%;
+            aspect-ratio: 1;
+            transform: scaleX(.7) rotate(-24deg);
+        }
+
+        .signal-orbit-two {
+            top: 19%;
+            left: 27%;
+            width: 48%;
+            aspect-ratio: 1;
+            border-style: dashed;
+            opacity: .7;
+            transform: scaleX(.7) rotate(28deg);
+        }
+
+        .signal-flow {
             position: relative;
             z-index: 1;
-            width: 76%;
-            min-height: 285px;
-            padding: 22px 22px 18px;
-            border-radius: 4px 4px 15px 4px;
-            color: #173c3b;
-            background: #fff9e9;
-            box-shadow: 10px 15px 0 rgba(5, 39, 38, .2);
-            transform: rotate(-4deg) translateY(3px);
-        }
-
-        .art-topline {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            width: min(88%, 420px);
+            grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr);
+            align-items: center;
             gap: 8px;
-            color: #71847c;
-            font-size: 8px;
-            font-weight: 800;
-            letter-spacing: .09em;
+            margin-top: -12px;
         }
 
-        .art-label {
-            margin: 34px 0 7px;
-            color: #e16f58;
+        .signal-card {
+            position: relative;
+            min-width: 0;
+            min-height: 205px;
+            padding: 17px 14px;
+            border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+            border-radius: 12px;
+            color: var(--text);
+            background: var(--surface);
+            box-shadow: 0 18px 38px rgba(0, 0, 0, .18);
+        }
+
+        .signal-input {
+            transform: rotate(-4deg) translateY(5px);
+        }
+
+        .signal-output {
+            transform: rotate(3deg) translateY(-5px);
+        }
+
+        .signal-card-label {
+            display: block;
+            margin-bottom: 20px;
+            color: var(--faint);
             font-size: 8px;
             font-weight: 850;
-            letter-spacing: .16em;
+            letter-spacing: .13em;
         }
 
-        .art-title {
-            margin: 0;
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: clamp(31px, 4.4vw, 50px);
-            letter-spacing: -.07em;
-            line-height: .98;
+        .signal-line {
+            display: block;
+            height: 6px;
+            margin: 10px 0;
+            border-radius: 99px;
+            background: color-mix(in srgb, var(--text) 16%, transparent);
         }
 
-        .art-rules {
-            display: grid;
-            gap: 8px;
-            margin-top: 22px;
+        .signal-line.short {
+            width: 58%;
         }
 
-        .art-rules i {
-            height: 5px;
-            border-radius: 5px;
-            background: #e3dece;
+        .signal-line.medium {
+            width: 78%;
         }
 
-        .art-rules i:nth-child(2) {
-            width: 84%;
-        }
-
-        .art-rules i:nth-child(3) {
-            width: 62%;
-        }
-
-        .art-footer {
-            margin-top: 16px;
-            padding-top: 10px;
-            border-top: 1px solid #ded8c8;
-            color: #526a64;
+        .signal-tag {
+            display: inline-flex;
+            margin-top: 9px;
+            padding: 4px 7px;
+            border-radius: 99px;
+            color: var(--accent-strong);
+            background: color-mix(in srgb, var(--accent) 22%, var(--surface));
             font-size: 8px;
-            font-weight: 700;
+            font-weight: 750;
         }
 
-        .art-sticker {
-            position: absolute;
-            z-index: 2;
-            top: 13%;
-            right: 3%;
+        .signal-bridge {
             display: grid;
-            width: 91px;
-            height: 91px;
+            justify-items: center;
+            gap: 8px;
+        }
+
+        .signal-core {
+            display: grid;
+            width: 38px;
+            height: 38px;
             place-items: center;
             border-radius: 50%;
-            color: #fff9e9;
-            background: var(--accent);
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: 13px;
-            line-height: 1.05;
-            text-align: center;
-            transform: rotate(9deg);
+            color: var(--accent-strong);
+            background: var(--mint);
+            box-shadow: 0 0 30px color-mix(in srgb, var(--mint) 40%, transparent);
+            font-size: 20px;
+            animation: signal-pulse 3s ease-in-out infinite;
         }
 
-        .art-spark {
-            position: absolute;
-            bottom: 12%;
-            left: 7%;
+        .signal-arrow {
             color: var(--mint);
-            font-size: 52px;
+            font-size: 19px;
             line-height: 1;
-            transform: rotate(-12deg);
         }
 
-        .art-caption {
+        .signal-output-title {
+            display: block;
+            font-family: var(--font-display);
+            font-size: clamp(20px, 2.5vw, 29px);
+            letter-spacing: -.06em;
+            line-height: 1;
+        }
+
+        .signal-check {
+            display: grid;
+            width: 24px;
+            height: 24px;
+            margin-top: 16px;
+            place-items: center;
+            border-radius: 50%;
+            color: #173c3b;
+            background: var(--mint);
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .signal-output-note {
+            display: block;
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 8px;
+            line-height: 1.4;
+        }
+
+        .signal-caption {
             position: absolute;
             right: 8%;
-            bottom: 9%;
-            color: #edf2d7;
-            font-size: 9px;
-            font-weight: 750;
-            letter-spacing: .12em;
-            text-transform: uppercase;
+            bottom: 8%;
+            color: var(--mint);
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: .13em;
+            text-align: right;
+        }
+
+        @keyframes signal-pulse {
+            50% {
+                box-shadow: 0 0 42px color-mix(in srgb, var(--mint) 60%, transparent);
+                transform: scale(1.06);
+            }
+        }
+
+        @keyframes hero-glow-drift {
+            to {
+                transform: translate3d(-18px, 18px, 0) scale(1.12);
+            }
+        }
+
+        .motion-ready [data-reveal] {
+            opacity: 0;
+            translate: 0 16px;
+            transition: opacity .65s ease, translate .65s cubic-bezier(.2, .7, .2, 1);
+        }
+
+        .motion-ready [data-reveal].is-visible {
+            opacity: 1;
+            translate: 0 0;
+        }
+
+        .hero-art:hover .signal-input {
+            transform: rotate(-5deg) translate(-2px, 3px);
+        }
+
+        .hero-art:hover .signal-output {
+            transform: rotate(4deg) translate(2px, -7px);
+        }
+
+        .signal-input,
+        .signal-output {
+            transition: transform .3s ease;
         }
 
         .quest-section {
@@ -1884,7 +1866,7 @@
         }
 
         .quest-title {
-            font-family: Georgia, "Times New Roman", serif;
+            font-family: var(--font-display);
             font-size: 24px;
             font-weight: 500;
             letter-spacing: -.04em;
@@ -1899,7 +1881,7 @@
 
         .quest-xp {
             color: var(--accent-strong);
-            font-family: Georgia, "Times New Roman", serif;
+            font-family: var(--font-display);
             font-size: 20px;
             font-weight: 600;
         }
@@ -1941,10 +1923,20 @@
         }
 
         .section-heading h2 {
-            font-family: Georgia, "Times New Roman", serif;
+            font-family: var(--font-display);
             font-size: clamp(30px, 3.8vw, 45px);
             font-weight: 500;
             letter-spacing: -.065em;
+        }
+
+        .section-heading h2::after {
+            display: block;
+            width: 38px;
+            height: 3px;
+            margin-top: 12px;
+            border-radius: 99px;
+            background: linear-gradient(90deg, var(--accent), var(--mint));
+            content: "";
         }
 
         .section-note,
@@ -1984,11 +1976,13 @@
             border-color: var(--line);
             border-radius: 5px 16px 5px 5px;
             background: var(--surface);
+            transition: border-color .2s ease, transform .2s ease, box-shadow .25s ease;
         }
 
         .role:hover {
             border-color: var(--accent);
-            transform: translateX(3px);
+            box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 12%, transparent);
+            transform: translate(2px, -2px);
         }
 
         .role::before {
@@ -2047,53 +2041,125 @@
             color: var(--muted);
         }
 
-        .skills-panel {
-            padding: 21px;
-            border-color: var(--line);
-            border-radius: 5px 23px 5px 5px;
-            background: var(--surface);
-        }
-
-        .filter-row {
-            gap: 7px;
-        }
-
-        .filter-button {
-            border-radius: 999px;
-            color: var(--muted);
-            font-size: 10px;
-        }
-
-        .filter-button:hover {
+        .book-teaser {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 96px;
+            align-items: center;
+            gap: 18px;
+            min-height: 170px;
+            padding: 22px clamp(16px, 4vw, 30px);
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 6px 24px 6px 6px;
             color: var(--text);
+            background:
+                radial-gradient(ellipse at 90% 15%, color-mix(in srgb, var(--mint) 17%, transparent), transparent 35%),
+                linear-gradient(115deg, var(--surface-raised), var(--surface));
+            text-decoration: none;
+            transition: border-color .2s ease, box-shadow .25s ease, transform .2s ease;
         }
 
-        .filter-button[aria-pressed="true"] {
-            color: #173c3b;
-            background: var(--mint);
+        .book-teaser:hover {
+            border-color: color-mix(in srgb, var(--accent) 58%, var(--line));
+            box-shadow: 0 14px 30px color-mix(in srgb, var(--accent-strong) 10%, transparent);
+            transform: translateY(-3px);
         }
 
-        .skill-groups {
-            gap: 10px;
+        .book-teaser-copy {
+            display: grid;
+            justify-items: start;
+            gap: 8px;
         }
 
-        .skill-group {
-            border-color: var(--line);
-            border-radius: 5px 14px 5px 5px;
-            background: var(--page);
-        }
-
-        .skill-group h3 {
+        .book-teaser-label {
             color: var(--accent-strong);
-            font-size: 10px;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .15em;
+            text-transform: uppercase;
         }
 
-        .skill-chip {
-            border-color: var(--line);
-            border-radius: 999px;
-            color: var(--text);
-            background: var(--surface);
+        .book-teaser-title {
+            margin: 0;
+            font-family: var(--font-display);
+            font-size: clamp(20px, 3vw, 26px);
+            font-weight: 500;
+            letter-spacing: -.035em;
+            line-height: 1.15;
+        }
+
+        .book-teaser-description {
+            max-width: 470px;
+            margin: 0;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.55;
+        }
+
+        .book-teaser-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 3px;
+            color: var(--accent-strong);
             font-size: 11px;
+            font-weight: 750;
+        }
+
+        .book-teaser-action span {
+            transition: transform .2s ease;
+        }
+
+        .book-teaser:hover .book-teaser-action span {
+            transform: translateX(4px);
+        }
+
+        .book-teaser-illustration {
+            display: grid;
+            justify-items: center;
+            perspective: 700px;
+        }
+
+        .book-teaser-book {
+            display: grid;
+            width: 78px;
+            height: 104px;
+            place-items: center;
+            padding: 10px 7px 10px 15px;
+            border: 1px solid color-mix(in srgb, var(--mint) 45%, transparent);
+            border-radius: 3px 11px 11px 3px;
+            color: #f7f2e7;
+            background: linear-gradient(90deg, #123f3d 0 10px, #1d5b55 10px 100%);
+            box-shadow: 3px 5px 0 color-mix(in srgb, var(--mint) 40%, var(--surface)), 7px 10px 20px rgba(0, 0, 0, .2);
+            transform: rotateY(-10deg) rotateZ(4deg);
+            transition: transform .3s ease;
+        }
+
+        .book-teaser-tools .book-teaser-book {
+            color: #173c3b;
+            background: linear-gradient(90deg, #a94e3d 0 10px, #e9bd89 10px 100%);
+            border-color: rgba(169, 78, 61, .45);
+        }
+
+        .book-teaser:hover .book-teaser-book {
+            transform: rotateY(-18deg) rotateZ(1deg) translateY(-3px);
+        }
+
+        .book-teaser-cover {
+            font-size: 9px;
+            font-weight: 850;
+            letter-spacing: .08em;
+            line-height: 1.4;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .book-teaser-cover small {
+            display: block;
+            margin-top: 9px;
+            font-size: 6px;
+            letter-spacing: .12em;
         }
 
         .closing-grid {
@@ -2105,10 +2171,17 @@
             border-color: var(--line);
             border-radius: 5px 19px 5px 5px;
             background: var(--surface);
+            transition: border-color .2s ease, transform .2s ease, box-shadow .25s ease;
+        }
+
+        .info-card:not(.quote-card):hover {
+            border-color: color-mix(in srgb, var(--accent) 56%, var(--line));
+            box-shadow: 0 12px 28px color-mix(in srgb, var(--accent) 10%, transparent);
+            transform: translateY(-3px);
         }
 
         .info-card h3 {
-            font-family: Georgia, "Times New Roman", serif;
+            font-family: var(--font-display);
             font-size: 20px;
             font-weight: 500;
         }
@@ -2176,7 +2249,7 @@
             max-width: 930px;
             margin: 0;
             color: var(--text);
-            font-family: Georgia, "Times New Roman", serif;
+            font-family: var(--font-display);
             font-size: clamp(27px, 4vw, 47px);
             letter-spacing: -.05em;
             line-height: 1.15;
@@ -2231,13 +2304,6 @@
             font-weight: 800;
         }
 
-        .fun-fact-points {
-            flex: 0 0 auto;
-            color: var(--accent-strong);
-            font-size: 10px;
-            font-weight: 850;
-        }
-
         .fun-fact-reveal {
             margin-top: 14px;
             padding-top: 13px;
@@ -2286,6 +2352,13 @@
             border-radius: 5px 26px 5px 5px;
             background: var(--surface);
             box-shadow: 0 12px 30px rgba(23, 60, 59, .06);
+            transition: border-color .2s ease, transform .25s ease, box-shadow .25s ease;
+        }
+
+        .proud-card:hover {
+            border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
+            box-shadow: 0 20px 42px color-mix(in srgb, var(--accent-strong) 16%, transparent);
+            transform: translateY(-4px);
         }
 
         .proud-card-reverse {
@@ -2319,7 +2392,7 @@
             max-width: 490px;
             margin: 0 0 14px;
             color: var(--text);
-            font-family: Georgia, "Times New Roman", serif;
+            font-family: var(--font-display);
             font-size: clamp(30px, 3.8vw, 48px);
             font-weight: 500;
             letter-spacing: -.06em;
@@ -2381,7 +2454,7 @@
 
         .proud-prompt strong {
             max-width: 270px;
-            font-family: Georgia, "Times New Roman", serif;
+            font-family: var(--font-display);
             font-size: clamp(22px, 2.7vw, 34px);
             font-weight: 500;
             letter-spacing: -.055em;
@@ -2467,7 +2540,7 @@
         .food-question {
             z-index: 1;
             color: #fff9e9;
-            font-family: Georgia, "Times New Roman", serif;
+            font-family: var(--font-display);
             font-size: 43px;
             font-weight: 700;
             text-shadow: 0 2px 6px rgba(23, 60, 59, .3);
@@ -2560,10 +2633,6 @@
                 min-height: 370px;
             }
 
-            .art-sheet {
-                width: 78%;
-            }
-
             .quest-steps {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
@@ -2605,13 +2674,8 @@
                 font-size: 14px;
             }
 
-            .rail-caption {
-                margin-bottom: 3px;
-                font-size: 8px;
-            }
-
             .rail-name {
-                font-family: Georgia, "Times New Roman", serif;
+                font-family: var(--font-display);
                 font-size: 25px;
                 font-weight: 500;
             }
@@ -2632,13 +2696,13 @@
             }
 
             .rail-contact a {
+                width: 38px;
                 min-height: 32px;
-                padding: 0 10px;
+                padding: 0;
                 font-size: 9px;
             }
 
-            .rail-nav-label,
-            .rail-footnote {
+            .rail-nav-label {
                 display: none;
             }
 
@@ -2713,10 +2777,6 @@
                 font-size: clamp(50px, 10.5vw, 74px);
             }
 
-            .hero-stats {
-                margin-top: 23px;
-            }
-
             .section {
                 padding: 31px 0 44px;
             }
@@ -2760,8 +2820,9 @@
             }
 
             .rail-contact a {
+                width: 34px;
                 min-height: 30px;
-                padding: 0 8px;
+                padding: 0;
             }
 
             .rail-role {
@@ -2772,50 +2833,19 @@
                 padding-top: 33px;
             }
 
-            .hero-art {
-                min-height: 330px;
+            .hero-actions {
+                gap: 6px;
             }
 
-            .art-sheet {
-                width: 78%;
-                min-height: 250px;
-                padding: 19px;
-            }
-
-            .art-label {
-                margin-top: 27px;
-            }
-
-            .art-sticker {
-                width: 75px;
-                height: 75px;
+            .hero-actions .primary-button,
+            .hero-actions .quiet-button {
+                padding-right: 12px;
+                padding-left: 12px;
                 font-size: 11px;
             }
 
-            .art-caption {
-                right: 6%;
-                bottom: 7%;
-                font-size: 8px;
-            }
-
-            .hero-stats {
-                gap: 4px;
-            }
-
-            .stat {
-                padding-right: 5px;
-            }
-
-            .stat+.stat {
-                padding-left: 7px;
-            }
-
-            .stat strong {
-                font-size: 20px;
-            }
-
-            .stat span {
-                font-size: 8px;
+            .hero-art {
+                min-height: 330px;
             }
 
             .quest-section {
@@ -2910,7 +2940,6 @@
                 padding: 0 14px 14px;
             }
 
-            .skill-groups,
             .closing-grid {
                 grid-template-columns: 1fr;
             }
@@ -2923,13 +2952,28 @@
                 grid-column: auto;
             }
 
-            .skills-panel {
-                padding: 14px;
-            }
-
             .footer {
                 align-items: flex-start;
                 flex-direction: column;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero-actions {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 8px;
+            }
+
+            .hero-actions .primary-button {
+                grid-column: 1 / -1;
+            }
+
+            .hero-actions .quiet-button {
+                width: 100%;
+                justify-content: center;
+                padding-right: 8px;
+                padding-left: 8px;
             }
         }
 
@@ -2941,6 +2985,14 @@
                 scroll-behavior: auto !important;
                 transition-duration: .01ms !important;
                 animation-duration: .01ms !important;
+            }
+
+            .signal-core {
+                animation: none !important;
+            }
+
+            .hero-art::before {
+                animation: none !important;
             }
         }
 
@@ -2961,7 +3013,7 @@
                 --accent: #d75c45;
                 --accent-strong: #164d4c;
                 --mint: #e4efae;
-                --gold: #8d5c00;
+                --gold: var(--mint);
                 --shadow: none;
                 --grid-line: transparent;
             }
@@ -2977,7 +3029,6 @@
             .quest-section,
             .role-tools,
             .role-search,
-            .filter-row,
             .footer {
                 display: none !important;
             }
@@ -3012,16 +3063,12 @@
             }
 
             .role,
-            .info-card,
-            .skill-group,
-            .skills-panel {
+            .info-card {
                 box-shadow: none;
                 break-inside: avoid;
             }
 
-            .role[hidden],
-            .skill-chip[hidden],
-            .skill-group[hidden] {
+            .role[hidden] {
                 display: block !important;
             }
 
@@ -3046,7 +3093,6 @@
                 font-size: 9pt;
             }
 
-            .skill-groups,
             .closing-grid {
                 grid-template-columns: 1fr 1fr;
             }
@@ -3096,7 +3142,6 @@
         <div class="rail-heading">
             <a class="profile-mark" href="#about" aria-label="Sneha Pandey, back to introduction">SP</a>
             <div>
-                <p class="rail-caption">Technical writer · field notes</p>
                 <h2 class="rail-name">Sneha Pandey</h2>
             </div>
         </div>
@@ -3104,21 +3149,33 @@
         <div class="rail-meta"><span>Hyderabad, India</span><span aria-hidden="true">·</span><span
                 class="rail-status">Salesforce</span></div>
         <div class="rail-contact">
-            <a href="mailto:snehapandey846@gmail.com">Email <span aria-hidden="true">↗</span></a>
+            <span class="rail-email-contact">
+                <button id="rail-email-toggle" type="button"
+                    aria-label="Show email address" aria-expanded="false" aria-controls="rail-email-address">
+                    <img class="social-logo gmail-logo" src="gmail.png" alt="">
+                </button>
+                <a class="rail-email-address" id="rail-email-address" href="mailto:snehapandey846@gmail.com"
+                    hidden>snehapandey846@gmail.com</a>
+            </span>
             <a href="https://www.linkedin.com/in/sneha-pandey-technical-writer/" target="_blank"
-                rel="noopener noreferrer" aria-label="Open Sneha Pandey's LinkedIn profile">in ↗</a>
+                rel="noopener noreferrer" aria-label="Open Sneha Pandey's LinkedIn profile">
+                <img class="social-logo linkedin-logo" src="linkedin.png" alt="">
+            </a>
             <a href="https://github.com/snehap16" target="_blank" rel="noopener noreferrer"
-                aria-label="Open Sneha Pandey's GitHub profile">GH ↗</a>
+                aria-label="Open Sneha Pandey's GitHub profile">
+                <img class="social-logo github-logo" src="github.png" alt="">
+            </a>
         </div>
         <p class="rail-nav-label">Explore</p>
         <nav class="profile-nav" aria-label="Portfolio sections">
             <a href="#about"><span>01</span>Intro</a>
             <a href="#experience"><span>02</span>Work</a>
-            <a href="#proud-of"><span>03</span>Proud of</a>
-            <a href="#education"><span>04</span>Info</a>
+            <a href="#skills"><span>03</span>Skills</a>
+            <a href="#tools"><span>04</span>Tools</a>
+            <a href="#proud-of"><span>05</span>Proud of</a>
+            <a href="#education"><span>06</span>Info</a>
 
         </nav>
-        <p class="rail-footnote">8+ years making<br>complex things clear.</p>
     </aside>
 
     <div class="page-shell">
@@ -3142,16 +3199,12 @@
         <main id="main">
             <section class="hero" id="about" aria-labelledby="resume-title">
                 <div>
-                    <p class="eyebrow">Technical Writer <span aria-hidden="true">/</span> Hyderabad, India</p>
-                    <h1 id="resume-title">I write so you <span class="accent">don’t have to guess.</span></h1>
+                    <h1 id="resume-title">Complexity,<br><span class="accent">made clear.</span></h1>
                     <p class="hero-copy">
-                        Who says you can’t make your passion your profession? I’ve always loved writing, and technical
-                        writing lets me put
-                        that love to work. It has taught me where to draw the line: explain what matters, leave out what
-                        doesn’t, and make
-                        the next step clear. For years, I’ve worked with product and engineering teams on help content,
-                        release notes, and
-                        developer docs that help people get things done.
+                        I’ve always loved writing and learning how things work. Technical writing brings those
+                        interests together. I work with product and engineering teams to explain complex features in
+                        clear, practical language. I create help content, release notes, and developer documentation
+                        that answer readers’ questions and show them what to do next.
                     </p>
                     <div class="hero-actions">
                         <a class="primary-button" href="mailto:snehapandey846@gmail.com">
@@ -3171,24 +3224,33 @@
                             GitHub <span aria-hidden="true">↗</span>
                         </a>
                     </div>
-                    <div class="hero-stats" aria-label="Career highlights">
-                        <div class="stat"><strong>8+</strong><span>years in content</span></div>
-                        <div class="stat"><strong>30%</strong><span>faster doc creation</span></div>
-                        <div class="stat"><strong>DITA</strong><span>and XML experience</span></div>
-                    </div>
                 </div>
                 <aside class="hero-art" role="img"
-                    aria-label="Illustrated field note about writing clear, user-focused documentation">
-                    <div class="art-sheet">
-                        <div class="art-topline"><span>FIELD NOTE NO. 01</span><span>✓ REVIEWED</span></div>
-                        <p class="art-label">THE FIRST RULE</p>
-                        <p class="art-title">Start with<br>the person.</p>
-                        <div class="art-rules" aria-hidden="true"><i></i><i></i><i></i></div>
-                        <p class="art-footer">Clear steps. Confident users.</p>
+                    aria-label="Product details are shaped into clear guidance and a confident next step">
+                    <div class="signal-orbit signal-orbit-one" aria-hidden="true"></div>
+                    <div class="signal-orbit signal-orbit-two" aria-hidden="true"></div>
+                    <div class="signal-flow">
+                        <div class="signal-card signal-input">
+                            <span class="signal-card-label">PRODUCT DETAIL</span>
+                            <span class="signal-line"></span>
+                            <span class="signal-line short"></span>
+                            <span class="signal-line medium"></span>
+                            <span class="signal-line"></span>
+                            <span class="signal-line short"></span>
+                            <span class="signal-tag">Complexity</span>
+                        </div>
+                        <div class="signal-bridge" aria-hidden="true">
+                            <span class="signal-core">✳</span>
+                            <span class="signal-arrow">→</span>
+                        </div>
+                        <div class="signal-card signal-output">
+                            <span class="signal-card-label">USER NEED</span>
+                            <span class="signal-output-title">A clear<br>next step.</span>
+                            <span class="signal-check" aria-hidden="true">✓</span>
+                            <span class="signal-output-note">Confident, capable users</span>
+                        </div>
                     </div>
-                    <div class="art-sticker" aria-hidden="true">Good docs<br>feel like<br>a superpower</div>
-                    <span class="art-spark" aria-hidden="true">✳</span>
-                    <span class="art-caption" aria-hidden="true">Draft · revise · repeat</span>
+                    <span class="signal-caption">GOOD DOCS MOVE PEOPLE FORWARD</span>
                 </aside>
             </section>
 
@@ -3198,8 +3260,7 @@
                         <p class="section-kicker">Career path</p>
                         <h2 id="experience-title">Experience</h2>
                     </div>
-                    <p class="section-note">Explore roles from product documentation and UX writing to content strategy
-                        and team enablement.</p>
+                    <p class="section-note">A little about my career graph.</p>
                 </div>
                 <div class="experience-intro">
                     <p>Expand a role to read more. Filter roles by company or responsibility.</p>
@@ -3388,75 +3449,47 @@
             <section class="section" id="skills" aria-labelledby="skills-title">
                 <div class="section-heading">
                     <div>
-                        <p class="section-kicker">What I work with</p>
-                        <h2 id="skills-title">Skills &amp; tools</h2>
+                        <p class="section-kicker">What I’m learning</p>
+                        <h2 id="skills-title">Skills</h2>
                     </div>
-                    <p class="section-note">Filter by focus area to explore documentation, collaboration, and technical
-                        skills.</p>
+                    <p class="section-note">A few skills I’ve learned over time and keep improving every day.</p>
                 </div>
-                <div class="skills-panel">
-                    <div class="filter-row" role="group" aria-label="Filter skills">
-                        <button class="filter-button" type="button" data-skill-filter="all" aria-pressed="true">All
-                            skills</button>
-                        <button class="filter-button" type="button" data-skill-filter="documentation"
-                            aria-pressed="false">Documentation</button>
-                        <button class="filter-button" type="button" data-skill-filter="strategy"
-                            aria-pressed="false">Content strategy</button>
-                        <button class="filter-button" type="button" data-skill-filter="collaboration"
-                            aria-pressed="false">Collaboration</button>
-                        <button class="filter-button" type="button" data-skill-filter="technical"
-                            aria-pressed="false">Technical &amp; design</button>
+                <a class="book-teaser book-teaser-skills" href="skills-tools.html#skills-book">
+                    <span class="book-teaser-copy">
+                        <span class="book-teaser-label">Explore my skills</span>
+                        <span class="book-teaser-title">A few skills I’ve built and keep growing.</span>
+                        <span class="book-teaser-description">Turn through the pages to explore the areas I work in.</span>
+                        <span class="book-teaser-action">Open the skills book <span aria-hidden="true">→</span></span>
+                    </span>
+                    <span class="book-teaser-illustration" aria-hidden="true">
+                        <span class="book-teaser-book">
+                            <span class="book-teaser-cover">Skills<small>Turn the pages</small></span>
+                        </span>
+                    </span>
+                </a>
+            </section>
+
+            <section class="section" id="tools" aria-labelledby="tools-title">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-kicker">What I use</p>
+                        <h2 id="tools-title">Tools</h2>
                     </div>
-                    <div class="skill-groups">
-                        <section class="skill-group" data-skill-group="documentation">
-                            <h3>Documentation &amp; UX</h3>
-                            <div class="skill-list">
-                                <span class="skill-chip">Technical writing</span><span class="skill-chip">User
-                                    documentation</span>
-                                <span class="skill-chip">Developer documentation</span><span class="skill-chip">API
-                                    documentation</span>
-                                <span class="skill-chip">Release notes</span><span class="skill-chip">UX writing</span>
-                                <span class="skill-chip">DITA</span><span class="skill-chip">XML</span>
-                                <span class="skill-chip">ArborText</span><span class="skill-chip">Oxygen XML</span>
-                                <span class="skill-chip">RoboHelp</span><span class="skill-chip">FrameMaker</span>
-                                <span class="skill-chip">Adobe Creative Cloud</span>
-                            </div>
-                        </section>
-                        <section class="skill-group" data-skill-group="strategy">
-                            <h3>Content strategy</h3>
-                            <div class="skill-list">
-                                <span class="skill-chip">Information architecture</span><span class="skill-chip">Content
-                                    strategy</span>
-                                <span class="skill-chip">Content reuse</span><span class="skill-chip">Style guide
-                                    development</span>
-                                <span class="skill-chip">Knowledge management</span><span
-                                    class="skill-chip">Localization</span>
-                                <span class="skill-chip">Prompt engineering</span><span class="skill-chip">Content
-                                    creation</span>
-                            </div>
-                        </section>
-                        <section class="skill-group" data-skill-group="collaboration">
-                            <h3>Collaboration &amp; delivery</h3>
-                            <div class="skill-list">
-                                <span class="skill-chip">Jira</span><span class="skill-chip">Confluence</span>
-                                <span class="skill-chip">GitHub</span><span class="skill-chip">GitLab</span>
-                                <span class="skill-chip">Google Sites</span><span class="skill-chip">Microsoft
-                                    365</span>
-                                <span class="skill-chip">Team leadership</span><span class="skill-chip">Training &amp;
-                                    mentoring</span>
-                            </div>
-                        </section>
-                        <section class="skill-group" data-skill-group="technical">
-                            <h3>Technical &amp; design</h3>
-                            <div class="skill-list">
-                                <span class="skill-chip">HTML</span><span class="skill-chip">CSS</span>
-                                <span class="skill-chip">Visual Studio</span><span class="skill-chip">GitHub
-                                    Copilot</span>
-                                <span class="skill-chip">Figma</span>
-                            </div>
-                        </section>
-                    </div>
+                    <p class="section-note">A few tools I’m comfortable with and keep learning to use better.</p>
                 </div>
+                <a class="book-teaser book-teaser-tools" href="skills-tools.html#tools-book">
+                    <span class="book-teaser-copy">
+                        <span class="book-teaser-label">Explore my tools</span>
+                        <span class="book-teaser-title">Tools I’m comfortable with and keep exploring.</span>
+                        <span class="book-teaser-description">Flip through the tools I use for writing, collaboration, design, and building.</span>
+                        <span class="book-teaser-action">Open the tools book <span aria-hidden="true">→</span></span>
+                    </span>
+                    <span class="book-teaser-illustration" aria-hidden="true">
+                        <span class="book-teaser-book">
+                            <span class="book-teaser-cover">Tools<small>Turn the pages</small></span>
+                        </span>
+                    </span>
+                </a>
             </section>
 
             <section class="section" id="proud-of" aria-labelledby="proud-of-title">
@@ -3547,7 +3580,6 @@
                         <button class="fun-fact-trigger" id="book-fact-toggle" type="button" aria-expanded="false"
                             aria-controls="book-fact">
                             <span class="fun-fact-action">Reveal a little more</span>
-                            <span class="fun-fact-points" id="book-fact-reward">+10 curiosity points</span>
                         </button>
                         <div class="fun-fact-reveal" id="book-fact" aria-live="polite" hidden>
                             <ul class="fun-fact-list">
@@ -3586,6 +3618,16 @@
             themeToggle.setAttribute('aria-label', isNight ? 'Switch to night theme' : 'Switch to paper theme');
             themeToggle.querySelector('.button-label').textContent = isNight ? 'Night mode' : 'Paper mode';
             themeMeta.content = isNight ? '#f7f2e7' : '#172d2c';
+            document.dispatchEvent(new Event('portfolio-theme-change'));
+        });
+
+        const railEmailToggle = document.getElementById('rail-email-toggle');
+        const railEmailAddress = document.getElementById('rail-email-address');
+        railEmailToggle.addEventListener('click', () => {
+            const shouldShowAddress = railEmailToggle.getAttribute('aria-expanded') !== 'true';
+            railEmailToggle.setAttribute('aria-expanded', String(shouldShowAddress));
+            railEmailToggle.setAttribute('aria-label', shouldShowAddress ? 'Hide email address' : 'Show email address');
+            railEmailAddress.hidden = !shouldShowAddress;
         });
 
         document.getElementById('print-resume').addEventListener('click', () => window.print());
@@ -3613,32 +3655,15 @@
             expandRoles.textContent = shouldExpand ? 'Collapse all' : 'Expand all';
         });
 
-        const skillFilters = [...document.querySelectorAll('[data-skill-filter]')];
-        const skillGroups = [...document.querySelectorAll('[data-skill-group]')];
-
-        skillFilters.forEach(button => {
-            button.addEventListener('click', () => {
-                const filter = button.dataset.skillFilter;
-                skillFilters.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-                skillGroups.forEach(group => { group.hidden = filter !== 'all' && group.dataset.skillGroup !== filter; });
-            });
-        });
-
         const bookFactToggle = document.getElementById('book-fact-toggle');
         const bookFact = document.getElementById('book-fact');
         const bookFactAction = bookFactToggle.querySelector('.fun-fact-action');
-        const bookFactReward = document.getElementById('book-fact-reward');
-        let curiosityPointsEarned = false;
 
         bookFactToggle.addEventListener('click', () => {
             const shouldReveal = bookFactToggle.getAttribute('aria-expanded') !== 'true';
             bookFactToggle.setAttribute('aria-expanded', String(shouldReveal));
             bookFact.hidden = !shouldReveal;
             bookFactAction.textContent = shouldReveal ? 'Hide this note' : 'Reveal a little more';
-            if (shouldReveal && !curiosityPointsEarned) {
-                curiosityPointsEarned = true;
-                bookFactReward.textContent = '10 curiosity points earned';
-            }
         });
 
         const progressBar = document.getElementById('reading-progress');
@@ -3665,6 +3690,22 @@
             });
         }, { rootMargin: '-25% 0px -65% 0px' });
         document.querySelectorAll('main > section[id]').forEach(section => sectionObserver.observe(section));
+
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            const revealTargets = document.querySelectorAll('.section-heading, .role, .proud-card, .info-card');
+            revealTargets.forEach(target => { target.dataset.reveal = ''; });
+            document.documentElement.classList.add('motion-ready');
+
+            const revealObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('is-visible');
+                    revealObserver.unobserve(entry.target);
+                });
+            }, { threshold: .12, rootMargin: '0px 0px -36px 0px' });
+
+            revealTargets.forEach(target => revealObserver.observe(target));
+        }
 
     </script>
 </body>
