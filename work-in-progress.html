@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f2e7">
+    <title>Work in progress — Sneha Pandey</title>
+    <style>
+        :root {
+            --page: #f7f2e7;
+            --surface: #fffdf7;
+            --text: #173c3b;
+            --muted: #526a64;
+            --line: rgba(23, 60, 59, .18);
+            --accent: #f47e63;
+            --accent-strong: #164d4c;
+            --mint: #d3e963;
+            font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+            color: var(--text);
+            background: var(--page);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+            background:
+                radial-gradient(rgba(23, 60, 59, .055) .8px, transparent .8px),
+                radial-gradient(ellipse at 86% 0%, #eee8d8, transparent 34rem),
+                var(--page);
+            background-size: 19px 19px, auto, auto;
+        }
+
+        .page {
+            display: flex;
+            width: min(1100px, calc(100% - 48px));
+            min-height: 100vh;
+            flex-direction: column;
+            margin: 0 auto;
+            padding: 28px 0 24px;
+        }
+
+        .back {
+            display: inline-flex;
+            align-self: flex-start;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 18px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: var(--surface);
+            color: var(--accent-strong);
+            font-size: .85rem;
+            font-weight: 750;
+            text-decoration: none;
+            box-shadow: 0 5px 16px rgba(37, 55, 48, .08);
+            transition: transform .25s ease, background .25s ease, color .25s ease;
+        }
+
+        .back:hover, .back:focus-visible {
+            background: var(--accent-strong);
+            color: var(--surface);
+            transform: translateX(-4px);
+        }
+
+        .back:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+        .hero {
+            position: relative;
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 0 10px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: #71847c;
+            font-size: .7rem;
+            font-weight: 750;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 5px rgba(244, 126, 99, .15);
+            animation: blink 1.4s ease-in-out infinite;
+        }
+
+        h1 {
+            max-width: 800px;
+            margin: 18px 0 0;
+            font-size: clamp(2.4rem, 7vw, 5.4rem);
+            font-weight: 680;
+            letter-spacing: -.06em;
+            line-height: 1;
+        }
+
+        h1 em {
+            color: var(--accent);
+            font-family: Georgia, "Times New Roman", serif;
+            font-weight: 400;
+        }
+
+        .lead {
+            max-width: 520px;
+            margin: 20px 0 0;
+            color: var(--muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .stay {
+            display: inline-block;
+        }
+
+        .dots span {
+            display: inline-block;
+            animation: hop 1.2s ease-in-out infinite;
+        }
+
+        .dots span:nth-child(2) { animation-delay: .15s; }
+        .dots span:nth-child(3) { animation-delay: .3s; }
+
+        .scene {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 8px;
+        }
+
+        .ring {
+            position: absolute;
+            inset: 8px;
+            border: 1px solid rgba(22, 77, 76, .4);
+            border-radius: 50%;
+            animation: spin 7s linear infinite;
+        }
+
+        .ring::after {
+            position: absolute;
+            top: 6px;
+            right: 14px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            content: "";
+        }
+
+        .ring-two {
+            inset: 26px -8px;
+            border-color: rgba(244, 126, 99, .6);
+            animation: spin-tilted 7s linear infinite reverse;
+        }
+
+        .core {
+            position: absolute;
+            inset: 48px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 32% 28%, #f9f8c5, var(--mint) 50%, #a9c74a);
+            box-shadow: 0 10px 28px rgba(121, 145, 53, .28);
+            animation: bob 2.6s ease-in-out infinite;
+        }
+
+        .game {
+            margin-top: 38px;
+            width: 100%;
+        }
+
+        .game-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 12px;
+            font-size: .85rem;
+            font-weight: 700;
+        }
+
+        .game-head p { margin: 0; color: var(--muted); font-weight: 500; }
+
+        .score {
+            padding: 7px 14px;
+            border-radius: 999px;
+            background: var(--accent-strong);
+            color: var(--surface);
+        }
+
+        .arena {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            background: rgba(255, 253, 247, .6);
+            box-shadow: 0 12px 30px rgba(37, 55, 48, .075);
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -80px;
+            display: grid;
+            place-items: center;
+            padding: 0;
+            border: 1px solid rgba(22, 77, 76, .3);
+            border-radius: 50%;
+            color: var(--accent-strong);
+            font-size: 1.3rem;
+            cursor: pointer;
+            animation: rise var(--dur, 5s) linear forwards;
+            transition: transform .15s ease, opacity .15s ease;
+        }
+
+        .bubble:hover { filter: brightness(1.06); }
+
+        .bubble.pop {
+            opacity: 0;
+            transform: scale(1.7);
+            pointer-events: none;
+        }
+
+        .bubble:focus-visible { outline: 3px solid var(--accent); }
+
+        .footer-note {
+            margin: 18px 0 0;
+            color: #71847c;
+            font-size: .75rem;
+            text-align: center;
+        }
+
+        @keyframes blink { 50% { opacity: .35; } }
+        @keyframes hop { 50% { transform: translateY(-6px); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes spin-tilted {
+            from { transform: rotate(58deg); }
+            to { transform: rotate(418deg); }
+        }
+        @keyframes bob {
+            50% { transform: translateY(-8px) scale(1.08); }
+        }
+        @keyframes rise {
+            from { transform: translateY(0) rotate(0deg); }
+            to { transform: translateY(-420px) rotate(25deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <a class="back" href="index.html"><span aria-hidden="true">←</span> Back to home</a>
+
+        <main class="hero">
+            <div class="scene" aria-hidden="true">
+                <span class="ring"></span>
+                <span class="ring ring-two"></span>
+                <span class="core"></span>
+            </div>
+
+            <span class="badge"><span class="dot" aria-hidden="true"></span> A work in progress</span>
+            <h1>I’m building <em>fun</em> things.</h1>
+            <p class="lead">
+                <span class="stay">Stay tuned</span><span class="dots" aria-hidden="true"><span>.</span><span>.</span><span>.</span></span>
+                Something playful is in the works. Until then, catch a few ideas below.
+            </p>
+
+            <section class="game" aria-label="Catch the ideas game">
+                <div class="game-head">
+                    <p>Pop the ideas before they float away</p>
+                    <span class="score">Caught: <span id="score">0</span></span>
+                </div>
+                <div class="arena" id="arena"></div>
+            </section>
+
+            <p class="footer-note">© <span id="year"></span> Sneha Pandey</p>
+        </main>
+    </div>
+
+    <script>
+        const arena = document.getElementById("arena");
+        const scoreEl = document.getElementById("score");
+        const icons = ["💡", "✏️", "✨", "📖", "🎨", "🚀"];
+        const colors = ["#d3e963", "#f9b3a3", "#bfe0d8", "#f9f8c5"];
+        let score = 0;
+
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        function spawn() {
+            if (document.hidden) return;
+            const size = 46 + Math.random() * 28;
+            const bubble = document.createElement("button");
+            bubble.type = "button";
+            bubble.className = "bubble";
+            bubble.setAttribute("aria-label", "Catch idea");
+            bubble.textContent = icons[Math.floor(Math.random() * icons.length)];
+            bubble.style.width = bubble.style.height = `${size}px`;
+            bubble.style.left = `${Math.random() * (arena.clientWidth - size)}px`;
+            bubble.style.background = colors[Math.floor(Math.random() * colors.length)];
+            bubble.style.setProperty("--dur", `${4 + Math.random() * 2.5}s`);
+
+            bubble.addEventListener("click", () => {
+                score += 1;
+                scoreEl.textContent = score;
+                bubble.classList.add("pop");
+                setTimeout(() => bubble.remove(), 160);
+            });
+            bubble.addEventListener("animationend", (event) => {
+                if (event.animationName === "rise") bubble.remove();
+            });
+
+            arena.appendChild(bubble);
+        }
+
+        spawn();
+        setInterval(spawn, 750);
+    </script>
+</body>
+</html>

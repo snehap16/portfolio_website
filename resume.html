@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Resume of Sneha Pandey, technical writer.">
+    <title>Sneha Pandey | Resume</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #1d3034;
+            --muted: #526469;
+            --accent: #176f68;
+            --line: #cbd6d3;
+            --paper: #fff;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: #e9efed;
+            font: 9.2pt/1.35 Arial, Helvetica, sans-serif;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .resume-sheet {
+            position: relative;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 10mm auto;
+            padding: 14mm 17mm 17mm;
+            background: var(--paper);
+            box-shadow: 0 8px 30px rgba(29, 48, 52, .12);
+        }
+
+        .resume-sheet::before {
+            position: absolute;
+            inset: 0 0 auto;
+            height: 2.5mm;
+            background: var(--accent);
+            content: "";
+        }
+
+        .resume-header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 8mm;
+            padding-bottom: 4mm;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .role-label,
+        .running-label {
+            margin: 0 0 1.5mm;
+            color: var(--accent);
+            font-size: 8pt;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 29pt;
+            font-weight: 750;
+            letter-spacing: -.045em;
+            line-height: 1;
+        }
+
+        .resume-subtitle {
+            margin: 2mm 0 0;
+            color: var(--muted);
+            font-size: 11pt;
+            font-weight: 600;
+        }
+
+        .resume-location {
+            flex: 0 0 auto;
+            margin: 0 0 1mm;
+            color: var(--muted);
+            font-size: 9pt;
+            text-align: right;
+        }
+
+        .contact-line {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5mm 4mm;
+            margin-top: 3mm;
+            color: var(--muted);
+            font-size: 8.3pt;
+        }
+
+        .contact-line a {
+            color: var(--accent);
+        }
+
+        .resume-section {
+            margin-top: 5mm;
+        }
+
+        .section-title {
+            margin: 0 0 2.2mm;
+            padding-bottom: 1.2mm;
+            border-bottom: 1px solid var(--line);
+            color: var(--accent);
+            font-size: 9.2pt;
+            font-weight: 750;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .summary {
+            margin: 0;
+            color: #30464a;
+        }
+
+        .skills-list,
+        .experience-list {
+            display: grid;
+            gap: 2.4mm;
+        }
+
+        .skill-row {
+            display: grid;
+            grid-template-columns: 35mm 1fr;
+            gap: 3mm;
+        }
+
+        .skill-row strong {
+            color: var(--ink);
+            font-size: 8.6pt;
+        }
+
+        .skill-row p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .experience-list {
+            gap: 3mm;
+        }
+
+        .experience-item {
+            break-inside: avoid;
+        }
+
+        .experience-heading {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 5mm;
+        }
+
+        .experience-heading h3 {
+            margin: 0;
+            font-size: 9.7pt;
+            font-weight: 750;
+        }
+
+        .experience-date {
+            flex: 0 0 auto;
+            color: var(--muted);
+            font-size: 8.2pt;
+            text-align: right;
+        }
+
+        .experience-company {
+            margin: .5mm 0 0;
+            color: var(--muted);
+            font-size: 8.5pt;
+            font-weight: 600;
+        }
+
+        .experience-item ul {
+            display: grid;
+            gap: .8mm;
+            margin: 1.2mm 0 0;
+            padding-left: 4mm;
+        }
+
+        .experience-item li {
+            padding-left: .4mm;
+        }
+
+        .running-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 4mm;
+            padding-bottom: 2mm;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .running-name {
+            margin: 0;
+            font-size: 13pt;
+            font-weight: 750;
+        }
+
+        .running-label {
+            margin: 0;
+        }
+
+        .compact-list {
+            display: grid;
+            gap: 2.5mm;
+        }
+
+        .compact-item {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 1mm 5mm;
+        }
+
+        .compact-item strong {
+            font-size: 9pt;
+        }
+
+        .compact-item span {
+            color: var(--muted);
+            font-size: 8.2pt;
+            text-align: right;
+        }
+
+        .compact-item p {
+            grid-column: 1 / -1;
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .tools-list {
+            display: grid;
+            gap: 1.5mm;
+        }
+
+        .tools-list p {
+            margin: 0;
+        }
+
+        .tools-list strong {
+            color: var(--ink);
+        }
+
+        .project-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4mm;
+        }
+
+        .project-list h3 {
+            margin: 0 0 1mm;
+            font-size: 9pt;
+        }
+
+        .project-list p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 8.3pt;
+        }
+
+        .education-line {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1mm 4mm;
+        }
+
+        .education-line strong {
+            font-size: 9pt;
+        }
+
+        .education-line span {
+            color: var(--muted);
+        }
+
+        .page-number {
+            position: absolute;
+            right: 17mm;
+            bottom: 8mm;
+            left: 17mm;
+            display: flex;
+            justify-content: space-between;
+            padding-top: 2mm;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 7.5pt;
+        }
+
+        @media (max-width: 760px) {
+            .resume-sheet {
+                width: min(100% - 24px, 210mm);
+                min-height: 0;
+                margin: 12px auto;
+                padding: 26px 22px 52px;
+            }
+
+            .resume-header {
+                align-items: start;
+                flex-direction: column;
+                gap: 2mm;
+            }
+
+            .resume-location {
+                text-align: left;
+            }
+
+            .skill-row {
+                grid-template-columns: 1fr;
+                gap: .5mm;
+            }
+
+            .experience-heading {
+                align-items: start;
+                flex-direction: column;
+                gap: .5mm;
+            }
+
+            .experience-date {
+                text-align: left;
+            }
+
+            .compact-item {
+                grid-template-columns: 1fr;
+            }
+
+            .compact-item span {
+                text-align: left;
+            }
+
+            .project-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            body {
+                background: #fff;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .resume-sheet {
+                width: 210mm;
+                height: 297mm;
+                min-height: 0;
+                margin: 0;
+                padding: 14mm 17mm 17mm;
+                box-shadow: none;
+                break-after: page;
+                page-break-after: always;
+            }
+
+            .resume-sheet:last-child {
+                break-after: auto;
+                page-break-after: auto;
+            }
+
+            .resume-header {
+                flex-direction: row;
+                align-items: end;
+            }
+
+            .resume-location {
+                text-align: right;
+            }
+
+            .skill-row {
+                grid-template-columns: 35mm 1fr;
+                gap: 3mm;
+            }
+
+            .experience-heading {
+                flex-direction: row;
+                align-items: baseline;
+            }
+
+            .experience-date,
+            .compact-item span {
+                text-align: right;
+            }
+
+            .compact-item {
+                grid-template-columns: minmax(0, 1fr) auto;
+            }
+
+            .project-list {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <article class="resume-sheet">
+            <header class="resume-header">
+                <div>
+                    <p class="role-label">Technical Writer</p>
+                    <h1>Sneha Pandey</h1>
+                    <p class="resume-subtitle">Product and developer content</p>
+                </div>
+                <p class="resume-location">Hyderabad, India</p>
+            </header>
+            <div class="contact-line" aria-label="Contact links">
+                <a href="mailto:snehapandey846@gmail.com">snehapandey846@gmail.com</a>
+                <a href="https://www.linkedin.com/in/sneha-pandey-technical-writer/">LinkedIn</a>
+                <a href="https://github.com/snehap16">GitHub</a>
+            </div>
+
+            <section class="resume-section" aria-labelledby="summary-heading">
+                <h2 class="section-title" id="summary-heading">Professional Summary</h2>
+                <p class="summary">Technical writer partnering with product and engineering teams to make complex
+                    features clear and actionable. Creates customer-facing help content, release notes, product and
+                    developer documentation, and practical guidance that helps users understand what to do next.</p>
+            </section>
+
+            <section class="resume-section" aria-labelledby="skills-heading">
+                <h2 class="section-title" id="skills-heading">Core Skills</h2>
+                <div class="skills-list">
+                    <div class="skill-row">
+                        <strong>Documentation</strong>
+                        <p>Product and user documentation, developer and API documentation, help content, release notes,
+                            configuration guides, user manuals, tutorials</p>
+                    </div>
+                    <div class="skill-row">
+                        <strong>Content &amp; UX</strong>
+                        <p>UX writing, information architecture, content strategy and reuse, style guides, localization,
+                            knowledge management</p>
+                    </div>
+                    <div class="skill-row">
+                        <strong>Collaboration</strong>
+                        <p>SME interviews, product and engineering partnership, editorial review, release coordination,
+                            training and mentoring</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="resume-section" aria-labelledby="experience-heading">
+                <h2 class="section-title" id="experience-heading">Professional Experience</h2>
+                <div class="experience-list">
+                    <article class="experience-item">
+                        <div class="experience-heading">
+                            <h3>Senior Technical Writer</h3>
+                            <span class="experience-date">May 2026 – Present</span>
+                        </div>
+                        <p class="experience-company">Salesforce · Hyderabad</p>
+                        <ul>
+                            <li>Create and maintain customer-facing help content, release notes, object reference
+                                documentation, and developer documentation.</li>
+                            <li>Partner with product managers, engineers, and subject matter experts to validate product
+                                behavior and turn workflows into task-based procedures.</li>
+                            <li>Review examples, terminology, interface labels, and links for accuracy; coordinate
+                                content updates with product releases.</li>
+                        </ul>
+                    </article>
+
+                    <article class="experience-item">
+                        <div class="experience-heading">
+                            <h3>Technical Writer</h3>
+                            <span class="experience-date">May 2024 – May 2026</span>
+                        </div>
+                        <p class="experience-company">OpenText · Hyderabad</p>
+                        <ul>
+                            <li>Developed end-to-end product documentation using ArborText and internal tools, following
+                                company standards.</li>
+                            <li>Partnered with product managers, subject matter experts, and developers on release
+                                notes, manuals, configuration guides, and cloud integration instructions.</li>
+                            <li>Applied content chunking, minimalism, and reuse; improved information architecture and
+                                supported onboarding and writer development.</li>
+                        </ul>
+                    </article>
+
+                    <article class="experience-item">
+                        <div class="experience-heading">
+                            <h3>Associate Technical Writer</h3>
+                            <span class="experience-date">March 2023 – April 2024</span>
+                        </div>
+                        <p class="experience-company">GlobalLogic · Gurgaon</p>
+                        <ul>
+                            <li>Created help-center content, user manuals, guided tours, newsletters, and Google Sites
+                                content with product managers and engineers.</li>
+                            <li>Verified technical content, improved documentation structure, and created tutorials
+                                while mentoring junior writers.</li>
+                        </ul>
+                    </article>
+
+                </div>
+            </section>
+            <footer class="page-number"><span>Sneha Pandey · Resume</span><span>01</span></footer>
+        </article>
+
+        <article class="resume-sheet">
+            <header class="running-header">
+                <p class="running-name">Sneha Pandey</p>
+                <p class="running-label">Professional Experience · Continued</p>
+            </header>
+
+            <section class="resume-section" aria-labelledby="earlier-experience-heading">
+                <h2 class="section-title" id="earlier-experience-heading">Earlier Experience</h2>
+                <div class="experience-list">
+                    <article class="experience-item">
+                        <div class="experience-heading">
+                            <h3>Technical Writer</h3>
+                            <span class="experience-date">September 2021 – February 2023</span>
+                        </div>
+                        <p class="experience-company">Studio Graphene Pvt Ltd · Gurgaon</p>
+                        <ul>
+                            <li>Created product guides, user manuals, and operations documentation with engineers and
+                                product managers.</li>
+                            <li>Applied UX writing and localization practices; contributed to content strategy,
+                                taxonomy, and knowledge-base findability.</li>
+                        </ul>
+                    </article>
+                    <article class="experience-item">
+                        <div class="experience-heading">
+                            <h3>Senior Technical Content Writer</h3>
+                            <span class="experience-date">March 2021 – September 2021</span>
+                        </div>
+                        <p class="experience-company">IBL INFOTECH · Surat</p>
+                        <ul>
+                            <li>Updated technical publications and instruction booklets and created manuals, developer
+                                guides, operating procedures, and multimedia tutorials.</li>
+                            <li>Worked with subject matter experts to verify content; used UX writing and content
+                                chunking to improve clarity.</li>
+                        </ul>
+                    </article>
+                    <article class="experience-item">
+                        <div class="experience-heading">
+                            <h3>Senior Media Analyst</h3>
+                            <span class="experience-date">February 2020 – January 2021</span>
+                        </div>
+                        <p class="experience-company">Prime Opinion · Gurgaon</p>
+                        <ul>
+                            <li>Summarized and tagged news articles based on market trends and wrote analytical blog
+                                posts about business developments.</li>
+                            <li>Reviewed content for accuracy and clarity and managed documentation projects from
+                                planning through completion.</li>
+                        </ul>
+                    </article>
+                    <article class="experience-item">
+                        <div class="experience-heading">
+                            <h3>Creative Content Writer</h3>
+                            <span class="experience-date">December 2018 – January 2020</span>
+                        </div>
+                        <p class="experience-company">Lemontree Media Works Pvt Ltd · Pune</p>
+                        <ul>
+                            <li>Created marketing content and user manuals for software platforms and digital
+                                products; gathered information to produce accurate product guides.</li>
+                            <li>Created video tutorials and interactive demos and maintained editorial consistency
+                                across product documentation and marketing materials.</li>
+                        </ul>
+                    </article>
+                    <article class="experience-item">
+                        <div class="experience-heading">
+                            <h3>Content Writer</h3>
+                            <span class="experience-date">June 2017 – December 2018</span>
+                        </div>
+                        <p class="experience-company">Adroit Visuals · Kolkata</p>
+                        <ul>
+                            <li>Created search-friendly website, blog, product, and help content; revised and
+                                proofread content for accuracy and clarity.</li>
+                            <li>Updated product manuals, created help articles and FAQs, and contributed to content
+                                strategy and website engagement initiatives.</li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+
+            <section class="resume-section" aria-labelledby="tools-heading">
+                <h2 class="section-title" id="tools-heading">Tools</h2>
+                <div class="tools-list">
+                    <p><strong>Authoring:</strong> ArborText, RoboHelp, FrameMaker</p>
+                    <p><strong>Collaboration:</strong> Jira, Confluence, GitHub, GitLab, Google Sites, Microsoft 365</p>
+                    <p><strong>Design &amp; development:</strong> Adobe Creative Cloud, Figma, Visual Studio, GitHub
+                        Copilot, Claude Code</p>
+                </div>
+            </section>
+
+            <section class="resume-section" aria-labelledby="projects-heading">
+                <h2 class="section-title" id="projects-heading">Selected Projects</h2>
+                <div class="project-list">
+                    <article>
+                        <h3><a href="https://snehap16.github.io/awesome-tech-writing/">Writing Toolkit · Prompt
+                                Library</a></h3>
+                        <p>Interactive prompt collection for drafting, editing, documentation, and accessibility.</p>
+                    </article>
+                    <article>
+                        <h3><a href="https://kyakhau.mindandscript.com/">Kya Khau?</a></h3>
+                        <p>A creative project exploring food, flavor, and discovery.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="resume-section" aria-labelledby="education-heading">
+                <h2 class="section-title" id="education-heading">Education</h2>
+                <div class="education-line">
+                    <strong>Master of Arts, Journalism and Mass Communication</strong>
+                    <span>Singhania University · Graduated August 2023</span>
+                </div>
+            </section>
+            <footer class="page-number"><span>Sneha Pandey · Resume</span><span>02</span></footer>
+        </article>
+    </main>
+</body>
+
+</html>

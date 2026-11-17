@@ -1,0 +1,1205 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f2e7">
+    <meta name="description" content="A playful canvas of notes about Sneha Pandey.">
+    <title>Know Me — Sneha Pandey</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --page: #f7f2e7;
+            --page-glow: #eee8d8;
+            --surface: #fffdf7;
+            --surface-raised: #f0eadc;
+            --text: #173c3b;
+            --muted: #526a64;
+            --faint: #71847c;
+            --accent: #f47e63;
+            --accent-strong: #164d4c;
+            --mint: #d3e963;
+            --line: rgba(23, 60, 59, .15);
+            --shadow: 0 18px 38px rgba(37, 55, 48, .16);
+            --page-width: 1440px;
+            font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+            color: var(--text);
+            background: var(--page);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            min-width: 320px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-width: 320px;
+            min-height: 100vh;
+            margin: 0;
+            background:
+                radial-gradient(ellipse at 50% 42%, rgba(255, 253, 247, .9), transparent 34rem),
+                radial-gradient(ellipse at 12% 9%, rgba(211, 233, 99, .15), transparent 26rem),
+                radial-gradient(ellipse at 91% 83%, rgba(244, 126, 99, .11), transparent 27rem),
+                var(--page);
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .canvas {
+            position: relative;
+            display: flow-root;
+            min-height: max(100vh, 1080px);
+            min-height: max(100svh, 1080px);
+            overflow-x: clip;
+            isolation: isolate;
+            background-image: radial-gradient(rgba(23, 60, 59, .07) .7px, transparent .7px);
+            background-size: 22px 22px;
+            transition: background-color .8s ease;
+        }
+
+        .canvas.is-won {
+            background-color: #e6f0d9;
+        }
+
+        .topbar {
+            position: absolute;
+            z-index: 5;
+            top: 24px;
+            right: clamp(24px, 5vw, 76px);
+            left: clamp(24px, 5vw, 76px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            min-height: 44px;
+            align-items: center;
+            gap: 9px;
+            padding: 0 15px 0 12px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255, 253, 247, .72);
+            box-shadow: 0 5px 16px rgba(37, 55, 48, .06);
+            color: var(--accent-strong);
+            font-size: .86rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background .2s ease, box-shadow .2s ease, transform .2s ease;
+        }
+
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 1.8;
+        }
+
+        .back-link:hover {
+            background: var(--surface);
+            box-shadow: 0 8px 20px rgba(37, 55, 48, .11);
+            transform: translateY(-2px);
+        }
+
+        .back-link:focus-visible,
+        .draggable-note:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        .hero {
+            position: absolute;
+            z-index: 1;
+            top: 100px;
+            left: 50%;
+            width: min(680px, 90vw);
+            text-align: center;
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin: 0 0 19px;
+            color: var(--muted);
+            font-size: .68rem;
+            font-weight: 800;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+
+        .hero-kicker::before {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 5px rgba(244, 126, 99, .12);
+            content: "";
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--accent-strong);
+            font-size: clamp(3.35rem, 6.5vw, 5.45rem);
+            font-weight: 760;
+            letter-spacing: -.085em;
+            line-height: .96;
+        }
+
+        h1 span {
+            position: relative;
+            white-space: nowrap;
+        }
+
+        h1 span::after {
+            position: absolute;
+            z-index: -1;
+            right: -3%;
+            bottom: 1%;
+            left: -3%;
+            height: .2em;
+            border-radius: 999px;
+            background: rgba(211, 233, 99, .68);
+            content: "";
+            transform: rotate(-1.5deg);
+        }
+
+        .hero-subtitle {
+            margin: 18px 0 0;
+            color: var(--muted);
+            font-size: clamp(.95rem, 1.6vw, 1.12rem);
+            letter-spacing: .015em;
+        }
+
+        .game-instruction {
+            display: inline-block;
+            margin: 14px 0 0;
+            padding: 9px 14px;
+            border: 1px dashed var(--line);
+            border-radius: 999px;
+            background: rgba(255, 253, 247, .72);
+            color: var(--accent-strong);
+            font-size: .82rem;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .game-instruction .mobile-copy {
+            display: none;
+        }
+
+        .game-board {
+            position: relative;
+            z-index: 2;
+            width: min(1240px, 94vw);
+            height: 620px;
+            margin: 390px auto 0;
+        }
+
+        .drop-zone {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-template-rows: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            padding: 18px;
+            border: 1px dashed rgba(23, 60, 59, .24);
+            border-radius: 28px;
+            background: rgba(255, 253, 247, .24);
+            pointer-events: none;
+        }
+
+        .drop-slot {
+            border: 1px dashed var(--slot-border, rgba(23, 60, 59, .18));
+            border-radius: 19px;
+            background: var(--slot-fill, rgba(255, 253, 247, .2));
+            transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
+        }
+
+        .drop-slot.is-target {
+            border-color: var(--slot-border, rgba(22, 77, 76, .52));
+            background: var(--slot-fill, rgba(211, 233, 99, .18));
+            box-shadow: inset 0 0 0 2px rgba(22, 77, 76, .08);
+        }
+
+        .drop-slot.is-wrong-target {
+            border-color: rgba(194, 75, 53, .78);
+            background: rgba(226, 95, 71, .12);
+            box-shadow: inset 0 0 0 2px rgba(194, 75, 53, .12);
+        }
+
+        .drop-slot.is-filled {
+            border-color: var(--slot-border, rgba(22, 77, 76, .34));
+            background: var(--slot-fill, rgba(211, 233, 99, .1));
+        }
+
+        .notes-layer {
+            position: absolute;
+            z-index: 1;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .draggable-note {
+            --note-color: #f4edbd;
+            --rotation: -4deg;
+            position: absolute;
+            display: flex;
+            width: clamp(190px, 17vw, 248px);
+            min-height: 198px;
+            flex-direction: column;
+            padding: 22px 20px 20px;
+            border: 1px solid rgba(23, 60, 59, .08);
+            border-radius: 5px 19px 14px 18px;
+            background: var(--note-color);
+            box-shadow: 0 15px 32px rgba(54, 60, 42, .16), 0 2px 3px rgba(54, 60, 42, .06);
+            color: var(--text);
+            transform: translate(-50%, -50%) rotate(var(--rotation));
+            transform-origin: center;
+            animation: note-bob var(--bob-duration, 5.8s) ease-in-out var(--bob-delay, 0s) infinite;
+            cursor: grab;
+            touch-action: none;
+            pointer-events: auto;
+            transition: box-shadow .22s ease, transform .22s ease;
+        }
+
+        .draggable-note::before {
+            position: absolute;
+            top: -9px;
+            left: calc(50% - 27px);
+            width: 54px;
+            height: 18px;
+            border: 1px solid rgba(255, 255, 255, .35);
+            background: rgba(255, 255, 255, .52);
+            box-shadow: 0 2px 4px rgba(37, 55, 48, .08);
+            content: "";
+            transform: rotate(-3deg);
+        }
+
+        .draggable-note::after {
+            position: absolute;
+            z-index: 1;
+            top: -12px;
+            left: calc(50% - 9px);
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 34% 28%, #fff6d8 0 7%, #ff9a76 10% 39%, #d95443 58% 70%, #a83e35 73% 100%);
+            box-shadow: 0 3px 5px rgba(67, 45, 37, .28);
+            content: "";
+            opacity: 0;
+            transform: translateY(-7px) scale(.45);
+            transition: opacity .16s ease, transform .3s cubic-bezier(.2, .9, .25, 1.5);
+        }
+
+        .note-geography {
+            left: calc(13% - 25px);
+            top: 13%;
+            --bob-delay: -.8s;
+            --bob-duration: 5.6s;
+        }
+
+        .note-books {
+            left: calc(37% + 45px);
+            top: calc(13% - 10px);
+            --bob-delay: -2s;
+            --bob-duration: 6.2s;
+        }
+
+        .note-food {
+            left: calc(63% - 35px);
+            top: calc(13% - 15px);
+            --bob-delay: -1.5s;
+            --bob-duration: 5.2s;
+        }
+
+        .note-travel {
+            left: calc(87% + 30px);
+            top: calc(13% - 10px);
+            --bob-delay: -2.7s;
+            --bob-duration: 6s;
+        }
+
+        .note-driving {
+            left: calc(13% + 25px);
+            top: calc(87% + 15px);
+            --bob-delay: -1.2s;
+            --bob-duration: 6.4s;
+        }
+
+        .note-kdrama {
+            left: calc(37% + 20px);
+            top: calc(87% + 20px);
+            --bob-delay: -2.3s;
+            --bob-duration: 5.9s;
+        }
+
+        .note-plants {
+            left: calc(63% - 20px);
+            top: calc(87% + 20px);
+            --bob-delay: -.6s;
+            --bob-duration: 6.1s;
+        }
+
+        .note-curiosity {
+            left: calc(87% - 25px);
+            top: calc(87% + 30px);
+            --bob-delay: -1.8s;
+            --bob-duration: 5.4s;
+        }
+
+        .note-topline {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .note-spark {
+            color: var(--accent);
+            font-size: .95rem;
+            line-height: 1;
+        }
+
+        .note-title {
+            margin: 16px 0 9px;
+            color: var(--accent-strong);
+            font-size: 1.15rem;
+            font-weight: 760;
+            letter-spacing: -.04em;
+            line-height: 1.12;
+        }
+
+        .note-copy {
+            margin: 0;
+            color: #435b53;
+            font-size: .83rem;
+            line-height: 1.5;
+        }
+
+        .draggable-note.is-dragging {
+            z-index: 10 !important;
+            animation: none;
+            box-shadow: 0 24px 48px rgba(37, 55, 48, .24);
+            cursor: grabbing;
+            translate: 0 0;
+            transform: translate(-50%, -50%) rotate(var(--rotation)) scale(1.055);
+            transition: none;
+        }
+
+        .draggable-note.is-snapped {
+            z-index: 0 !important;
+            animation: none;
+            cursor: grab;
+            transform: translate(-50%, -50%) rotate(0deg);
+            transition: box-shadow .22s ease, left .28s cubic-bezier(.2, .75, .24, 1), top .28s cubic-bezier(.2, .75, .24, 1), transform .5s cubic-bezier(.2, .75, .24, 1);
+        }
+
+        .draggable-note.is-snapped::after {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .draggable-note.is-rejected {
+            animation: rejection-shake .46s ease-in-out;
+            box-shadow: 0 0 0 4px rgba(210, 77, 62, .2), 0 15px 32px rgba(54, 60, 42, .16);
+        }
+
+        .win-message {
+            position: fixed;
+            z-index: 20;
+            bottom: 24px;
+            left: 50%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: calc(100vw - 32px);
+            padding: 14px 22px;
+            border: 1px solid rgba(22, 77, 76, .18);
+            border-radius: 999px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            color: var(--accent-strong);
+            font-size: .95rem;
+            font-weight: 750;
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, 12px) scale(.96);
+            transition: opacity .32s ease, transform .32s ease;
+        }
+
+        .win-message::before {
+            color: var(--accent);
+            content: "✦";
+        }
+
+        .win-message.is-visible {
+            opacity: 1;
+            transform: translate(-50%, 0) scale(1);
+        }
+
+        .win-message[hidden] {
+            display: none;
+        }
+
+        .celebration {
+            position: fixed;
+            z-index: 19;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            top: 48%;
+            left: 50%;
+            width: var(--piece-width, 9px);
+            height: var(--piece-height, 13px);
+            border-radius: 2px;
+            background: var(--piece-color);
+            opacity: 0;
+            animation: confetti-burst 1.35s cubic-bezier(.16, .7, .28, 1) both;
+        }
+
+        .draggable-note:focus-visible {
+            z-index: 4;
+            box-shadow: 0 0 0 3px rgba(244, 126, 99, .32), var(--shadow);
+        }
+
+        @keyframes rejection-shake {
+            0%, 100% { translate: 0 0; }
+            20% { translate: -9px 1px; }
+            40% { translate: 8px -2px; }
+            60% { translate: -6px 1px; }
+            80% { translate: 4px 0; }
+        }
+
+        @keyframes confetti-burst {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(.1) rotate(0deg);
+            }
+            14% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.15) rotate(90deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(calc(-50% + var(--burst-x)), calc(-50% + var(--burst-y))) scale(.45) rotate(var(--burst-spin));
+            }
+        }
+
+        @keyframes note-bob {
+            0%, 100% {
+                translate: 0 0;
+            }
+            50% {
+                translate: 0 -7px;
+            }
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .draggable-note:not(.is-dragging):not(.is-snapped):hover {
+                z-index: 4;
+                box-shadow: 0 20px 40px rgba(37, 55, 48, .21);
+                transform: translate(-50%, -50%) rotate(var(--rotation)) scale(1.035);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .canvas {
+                min-height: 100vh;
+                min-height: 100svh;
+                padding: 17px 18px 44px;
+                overflow-x: hidden;
+            }
+
+            .topbar {
+                position: relative;
+                inset: auto;
+            }
+
+            .hero {
+                position: relative;
+                top: auto;
+                left: auto;
+                width: min(100%, 680px);
+                margin: clamp(48px, 8vh, 78px) auto 34px;
+                transform: none;
+            }
+
+            h1 {
+                font-size: clamp(3.3rem, 10.5vw, 5.2rem);
+            }
+
+            .game-board {
+                width: min(100%, 540px);
+                height: auto;
+                margin: 0 auto;
+            }
+
+            .game-instruction .desktop-copy {
+                display: none;
+            }
+
+            .game-instruction .mobile-copy {
+                display: inline;
+            }
+
+            .win-message,
+            .celebration {
+                display: none !important;
+            }
+
+            .drop-zone {
+                display: none;
+            }
+
+            .notes-layer {
+                position: relative;
+                inset: auto;
+                display: grid;
+                width: min(100%, 540px);
+                grid-template-columns: minmax(0, 1fr);
+                gap: 15px;
+                margin: 0 auto;
+            }
+
+            .draggable-note {
+                position: relative;
+                inset: auto !important;
+                width: 100%;
+                min-width: 0;
+                min-height: 0;
+                margin: 0;
+                padding: 22px;
+                border-radius: 6px 19px 14px 18px;
+                animation: none;
+                cursor: default;
+                touch-action: auto;
+                transform: rotate(0);
+            }
+
+            .draggable-note.is-dragging,
+            .draggable-note.is-snapped,
+            .draggable-note:not(.is-dragging):not(.is-snapped):hover {
+                transform: rotate(0);
+            }
+
+            .note-title {
+                margin-top: 18px;
+            }
+
+        }
+
+        @media (max-width: 520px) {
+            .canvas {
+                padding-right: 14px;
+                padding-left: 14px;
+            }
+
+            .topbar {
+                gap: 8px;
+            }
+
+            .back-link {
+                min-height: 40px;
+                padding-right: 12px;
+                font-size: .8rem;
+            }
+
+            .hero {
+                margin-top: 57px;
+                margin-bottom: 30px;
+            }
+
+            h1 {
+                font-size: clamp(3rem, 12.5vw, 4.1rem);
+            }
+
+            .hero-subtitle {
+                font-size: .95rem;
+            }
+
+            .game-instruction {
+                max-width: 100%;
+                border-radius: 18px;
+            }
+
+            .draggable-note {
+                padding: 21px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="canvas" id="canvas">
+        <header class="topbar">
+            <a class="back-link" href="index.html">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M19 12H5m7 7-7-7 7-7"></path>
+                </svg>
+                <span>Back to Hub</span>
+            </a>
+        </header>
+
+        <section class="hero" aria-labelledby="page-title">
+            <p class="hero-kicker">A LITTLE PEEK INTO MY WORLD</p>
+            <h1 id="page-title">Life gets <span>chaotic.</span></h1>
+            <p class="hero-subtitle">Sometimes, a little extra help gets everything into the right place.</p>
+            <p class="game-instruction">
+                <span class="desktop-copy">Drop each note into its matching color box for a peek into my chaotic world.</span>
+                <span class="mobile-copy">A little peek into my world. The sticky-note fun is best on desktop.</span>
+            </p>
+        </section>
+
+        <section class="game-board" aria-label="A peek into Sneha's world">
+            <div class="drop-zone" id="drop-zone" aria-hidden="true">
+                <div class="drop-slot" data-slot="0"></div>
+                <div class="drop-slot" data-slot="1"></div>
+                <div class="drop-slot" data-slot="2"></div>
+                <div class="drop-slot" data-slot="3"></div>
+                <div class="drop-slot" data-slot="4"></div>
+                <div class="drop-slot" data-slot="5"></div>
+                <div class="drop-slot" data-slot="6"></div>
+                <div class="drop-slot" data-slot="7"></div>
+            </div>
+            <section class="notes-layer" id="notes-layer" aria-label="Floating sticky notes">
+                <div class="draggable-note note-geography" tabindex="0" role="group" aria-labelledby="geography-title"
+                    aria-keyshortcuts="ArrowUp ArrowDown ArrowLeft ArrowRight Enter Space">
+                    <div class="note-topline"><span class="note-spark" aria-hidden="true">✳</span></div>
+                    <h2 class="note-title" id="geography-title">A Complex Recipe</h2>
+                    <p class="note-copy">100% Bihari genetics, marinated in Kolkata, and currently simmering in Hyderabad. My geography is basically a very complex recipe.</p>
+                </div>
+
+                <div class="draggable-note note-books" tabindex="0" role="group" aria-labelledby="books-title"
+                    aria-keyshortcuts="ArrowUp ArrowDown ArrowLeft ArrowRight Enter Space">
+                    <div class="note-topline"><span class="note-spark" aria-hidden="true">✳</span></div>
+                    <h2 class="note-title" id="books-title">The Home Library</h2>
+                    <p class="note-copy">Bring up a good book and watch my introverted shell completely disappear. I am actively manifesting a massive home library.</p>
+                </div>
+
+                <div class="draggable-note note-food" tabindex="0" role="group" aria-labelledby="food-title"
+                    aria-keyshortcuts="ArrowUp ArrowDown ArrowLeft ArrowRight Enter Space">
+                    <div class="note-topline"><span class="note-spark" aria-hidden="true">✳</span></div>
+                    <h2 class="note-title" id="food-title">Food Scout</h2>
+                    <p class="note-copy">I am a walking, talking directory for good food. Ask me where to eat and I will hand over a highly opinionated list of the best spots.</p>
+                </div>
+
+                <div class="draggable-note note-travel" tabindex="0" role="group" aria-labelledby="travel-title"
+                    aria-keyshortcuts="ArrowUp ArrowDown ArrowLeft ArrowRight Enter Space">
+                    <div class="note-topline"><span class="note-spark" aria-hidden="true">✳</span></div>
+                    <h2 class="note-title" id="travel-title">Always En Route</h2>
+                    <p class="note-copy">My default state is looking at maps and planning the next escape. I am always chasing that out of office feeling.</p>
+                </div>
+
+                <div class="draggable-note note-driving" tabindex="0" role="group" aria-labelledby="driving-title"
+                    aria-keyshortcuts="ArrowUp ArrowDown ArrowLeft ArrowRight Enter Space">
+                    <div class="note-topline"><span class="note-spark" aria-hidden="true">✳</span></div>
+                    <h2 class="note-title" id="driving-title">Open Highway</h2>
+                    <p class="note-copy">Put me behind the wheel of the XUV700 and point me toward an open highway. Long drives are my ultimate therapy.</p>
+                </div>
+
+                <div class="draggable-note note-kdrama" tabindex="0" role="group" aria-labelledby="kdrama-title"
+                    aria-keyshortcuts="ArrowUp ArrowDown ArrowLeft ArrowRight Enter Space">
+                    <div class="note-topline"><span class="note-spark" aria-hidden="true">✳</span></div>
+                    <h2 class="note-title" id="kdrama-title">K-Drama Enthusiast</h2>
+                    <p class="note-copy">Proud K-drama enthusiast. I will absolutely analyze the technical writing of the plot while getting entirely too invested in the soundtrack.</p>
+                </div>
+
+                <div class="draggable-note note-plants" tabindex="0" role="group" aria-labelledby="plants-title"
+                    aria-keyshortcuts="ArrowUp ArrowDown ArrowLeft ArrowRight Enter Space">
+                    <div class="note-topline"><span class="note-spark" aria-hidden="true">✳</span></div>
+                    <h2 class="note-title" id="plants-title">Balcony Forest</h2>
+                    <p class="note-copy">Trying my absolute best to turn my apartment balcony into a literal forest. My indoor plants are my most demanding roommates.</p>
+                </div>
+
+                <div class="draggable-note note-curiosity" tabindex="0" role="group" aria-labelledby="curiosity-title"
+                    aria-keyshortcuts="ArrowUp ArrowDown ArrowLeft ArrowRight Enter Space">
+                    <div class="note-topline"><span class="note-spark" aria-hidden="true">✳</span></div>
+                    <h2 class="note-title" id="curiosity-title">Curious by Nature</h2>
+                    <p class="note-copy">I have a chronic need to tinker. Whether it is a new piece of technology or a totally random concept, I am always exploring how things work.</p>
+                </div>
+            </section>
+        </section>
+
+        <div class="win-message" id="win-message" role="status" aria-live="polite" hidden>Thank you. You are an angel.</div>
+        <div class="celebration" id="celebration" aria-hidden="true"></div>
+    </main>
+
+    <script>
+        const canvas = document.querySelector("#canvas");
+        const notesLayer = document.querySelector("#notes-layer");
+        const notes = [...document.querySelectorAll(".draggable-note")];
+        const dropSlots = [...document.querySelectorAll(".drop-slot")];
+        const winMessage = document.querySelector("#win-message");
+        const celebration = document.querySelector("#celebration");
+        const mobileLayout = window.matchMedia("(max-width: 900px)");
+        const noteSlots = new Map();
+        const slotOwners = new Map();
+        let activeDrag = null;
+        let topLayer = notes.length;
+        let audioContext = null;
+        let celebrationTimer = null;
+        let wasWon = false;
+
+        const colors = [
+            { note: "#f5e8a7", fill: "rgba(232, 188, 60, .16)", border: "rgba(196, 146, 23, .42)" },
+            { note: "#f5c5b4", fill: "rgba(226, 95, 71, .12)", border: "rgba(194, 75, 53, .38)" },
+            { note: "#cce5bd", fill: "rgba(83, 145, 91, .12)", border: "rgba(65, 122, 74, .38)" },
+            { note: "#d9cef2", fill: "rgba(115, 86, 174, .12)", border: "rgba(98, 70, 155, .38)" },
+            { note: "#c5e2ef", fill: "rgba(65, 136, 172, .12)", border: "rgba(52, 118, 151, .38)" },
+            { note: "#efcada", fill: "rgba(181, 93, 135, .12)", border: "rgba(157, 69, 111, .38)" },
+            { note: "#f0d2a7", fill: "rgba(179, 116, 43, .12)", border: "rgba(154, 96, 28, .38)" },
+            { note: "#d9e990", fill: "rgba(130, 151, 35, .14)", border: "rgba(106, 128, 24, .4)" }
+        ];
+
+        function shuffled(items) {
+            const result = [...items];
+            for (let index = result.length - 1; index > 0; index -= 1) {
+                const swapIndex = Math.floor(Math.random() * (index + 1));
+                [result[index], result[swapIndex]] = [result[swapIndex], result[index]];
+            }
+            return result;
+        }
+
+        shuffled(notes).forEach((note, index) => {
+            note.style.zIndex = String(index + 1);
+            note.dataset.baseZIndex = String(index + 1);
+        });
+
+        const slotColors = shuffled(colors);
+        const matchOffset = shuffled([2, 3, 5, 6])[0];
+        dropSlots.forEach((slot, index) => {
+            const color = slotColors[index];
+            slot.style.setProperty("--slot-fill", color.fill);
+            slot.style.setProperty("--slot-border", color.border);
+        });
+
+        notes.forEach((note, index) => {
+            const matchIndex = (index + matchOffset) % notes.length;
+            const color = slotColors[matchIndex];
+            note.dataset.matchSlot = dropSlots[matchIndex].dataset.slot;
+            note.style.setProperty("--note-color", color.note);
+            note.style.setProperty("--rotation", `${(Math.random() * 18 - 9).toFixed(1)}deg`);
+        });
+
+        function getAudioContext() {
+            const AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContextConstructor) {
+                return null;
+            }
+
+            if (!audioContext) {
+                audioContext = new AudioContextConstructor();
+            }
+            if (audioContext.state === "suspended") {
+                audioContext.resume();
+            }
+            return audioContext;
+        }
+
+        function playTone(context, frequency, startTime, duration, volume, type = "sine") {
+            const oscillator = context.createOscillator();
+            const gain = context.createGain();
+            oscillator.type = type;
+            oscillator.frequency.setValueAtTime(frequency, startTime);
+            gain.gain.setValueAtTime(.0001, startTime);
+            gain.gain.exponentialRampToValueAtTime(volume, startTime + .012);
+            gain.gain.exponentialRampToValueAtTime(.0001, startTime + duration);
+            oscillator.connect(gain);
+            gain.connect(context.destination);
+            oscillator.start(startTime);
+            oscillator.stop(startTime + duration);
+        }
+
+        function playPlacementSound() {
+            const context = getAudioContext();
+            if (!context) {
+                return;
+            }
+
+            const now = context.currentTime;
+            playTone(context, 659.25, now, .16, .055);
+            playTone(context, 987.77, now + .065, .22, .04);
+        }
+
+        function playApplause() {
+            const context = getAudioContext();
+            if (!context) {
+                return;
+            }
+
+            const frameCount = Math.floor(context.sampleRate * .12);
+            const buffer = context.createBuffer(1, frameCount, context.sampleRate);
+            const samples = buffer.getChannelData(0);
+            for (let index = 0; index < frameCount; index += 1) {
+                samples[index] = (Math.random() * 2 - 1) * (1 - index / frameCount);
+            }
+
+            const now = context.currentTime;
+            for (let index = 0; index < 24; index += 1) {
+                const startTime = now + index * .052 + Math.random() * .025;
+                const source = context.createBufferSource();
+                const filter = context.createBiquadFilter();
+                const gain = context.createGain();
+                source.buffer = buffer;
+                source.playbackRate.value = .82 + Math.random() * .36;
+                filter.type = "bandpass";
+                filter.frequency.value = 1200 + Math.random() * 1200;
+                filter.Q.value = .75;
+                gain.gain.setValueAtTime(.0001, startTime);
+                gain.gain.exponentialRampToValueAtTime(.055 + Math.random() * .035, startTime + .008);
+                gain.gain.exponentialRampToValueAtTime(.0001, startTime + .105);
+                source.connect(filter);
+                filter.connect(gain);
+                gain.connect(context.destination);
+                source.start(startTime);
+                source.stop(startTime + .12);
+            }
+        }
+
+        function celebrate() {
+            const confettiColors = ["#f47e63", "#d3e963", "#164d4c", "#e7b6d2", "#a9d8e8", "#f0c66b"];
+            clearTimeout(celebrationTimer);
+            celebration.replaceChildren();
+
+            for (let index = 0; index < 42; index += 1) {
+                const piece = document.createElement("span");
+                piece.className = "confetti-piece";
+                piece.style.setProperty("--piece-color", confettiColors[index % confettiColors.length]);
+                piece.style.setProperty("--piece-width", `${5 + Math.random() * 7}px`);
+                piece.style.setProperty("--piece-height", `${8 + Math.random() * 9}px`);
+                piece.style.setProperty("--burst-x", `${Math.round((Math.random() * 2 - 1) * 360)}px`);
+                piece.style.setProperty("--burst-y", `${Math.round((Math.random() * 2 - 1) * 300)}px`);
+                piece.style.setProperty("--burst-spin", `${Math.round(Math.random() * 900 - 450)}deg`);
+                piece.style.animationDelay = `${(Math.random() * .16).toFixed(2)}s`;
+                celebration.append(piece);
+            }
+
+            celebrationTimer = window.setTimeout(() => celebration.replaceChildren(), 1700);
+        }
+
+        function clamp(value, min, max) {
+            return Math.min(Math.max(value, min), Math.max(min, max));
+        }
+
+        function setFreePosition(note, centerX, centerY, layerBounds) {
+            note.style.animation = "none";
+            note.style.translate = "0 0";
+            note.style.left = `${centerX - layerBounds.left}px`;
+            note.style.top = `${centerY - layerBounds.top}px`;
+            note.style.right = "auto";
+            note.style.bottom = "auto";
+        }
+
+        function updateWinState() {
+            const won = noteSlots.size === notes.length;
+            const newlyWon = won && !wasWon;
+            wasWon = won;
+            canvas.classList.toggle("is-won", won);
+
+            if (won) {
+                winMessage.hidden = false;
+                requestAnimationFrame(() => {
+                    if (noteSlots.size === notes.length) {
+                        winMessage.classList.add("is-visible");
+                    }
+                });
+                if (newlyWon) {
+                    playApplause();
+                    celebrate();
+                }
+                return;
+            }
+
+            winMessage.classList.remove("is-visible");
+            winMessage.hidden = true;
+            clearTimeout(celebrationTimer);
+            celebration.replaceChildren();
+        }
+
+        function releaseNote(note) {
+            const slot = noteSlots.get(note);
+            if (!slot) {
+                return;
+            }
+
+            noteSlots.delete(note);
+            slotOwners.delete(slot);
+            slot.classList.remove("is-filled");
+            note.classList.remove("is-snapped");
+            note.style.animation = "";
+            note.style.translate = "";
+            updateWinState();
+        }
+
+        function findDropSlot(note) {
+            const noteBounds = note.getBoundingClientRect();
+            let closestSlot = null;
+            let greatestOverlap = .2;
+
+            dropSlots.forEach((slot) => {
+                if (slotOwners.has(slot) && slotOwners.get(slot) !== note) {
+                    return;
+                }
+
+                const slotBounds = slot.getBoundingClientRect();
+                const overlapWidth = Math.max(0, Math.min(noteBounds.right, slotBounds.right) - Math.max(noteBounds.left, slotBounds.left));
+                const overlapHeight = Math.max(0, Math.min(noteBounds.bottom, slotBounds.bottom) - Math.max(noteBounds.top, slotBounds.top));
+                const overlap = (overlapWidth * overlapHeight) / (noteBounds.width * noteBounds.height);
+                if (overlap > greatestOverlap) {
+                    greatestOverlap = overlap;
+                    closestSlot = slot;
+                }
+            });
+
+            return closestSlot;
+        }
+
+        function highlightSlot(slot, isWrong = false) {
+            dropSlots.forEach((candidate) => {
+                candidate.classList.toggle("is-target", candidate === slot && !isWrong);
+                candidate.classList.toggle("is-wrong-target", candidate === slot && isWrong);
+            });
+        }
+
+        function rejectNote(note) {
+            note.classList.remove("is-dragging", "is-rejected");
+            note.style.animation = "none";
+            note.style.translate = "0 0";
+            void note.offsetWidth;
+            note.style.animation = "";
+            note.classList.add("is-rejected");
+            if (typeof navigator.vibrate === "function") {
+                navigator.vibrate(45);
+            }
+        }
+
+        function snapNote(note, slot) {
+            if (!slot || slot.dataset.slot !== note.dataset.matchSlot || (slotOwners.has(slot) && slotOwners.get(slot) !== note)) {
+                return false;
+            }
+
+            note.classList.remove("is-rejected");
+            const previousSlot = noteSlots.get(note);
+            if (previousSlot && previousSlot !== slot) {
+                slotOwners.delete(previousSlot);
+                previousSlot.classList.remove("is-filled");
+            }
+
+            const slotBounds = slot.getBoundingClientRect();
+            const layerBounds = notesLayer.getBoundingClientRect();
+            setFreePosition(
+                note,
+                slotBounds.left + slotBounds.width / 2,
+                slotBounds.top + slotBounds.height / 2,
+                layerBounds
+            );
+            note.classList.remove("is-dragging");
+            note.classList.add("is-snapped");
+            note.style.zIndex = String(++topLayer);
+            highlightSlot(null);
+            noteSlots.set(note, slot);
+            slotOwners.set(slot, note);
+            slot.classList.add("is-filled");
+            playPlacementSound();
+            updateWinState();
+            return true;
+        }
+
+        function finishDrag(note, event) {
+            if (!activeDrag || activeDrag.note !== note || activeDrag.pointerId !== event.pointerId) {
+                return;
+            }
+
+            const slot = event.type === "pointerup" && activeDrag.didMove ? findDropSlot(note) : null;
+            highlightSlot(null);
+            if (slot) {
+                if (slot.dataset.slot === note.dataset.matchSlot) {
+                    snapNote(note, slot);
+                } else {
+                    rejectNote(note);
+                }
+            } else {
+                note.classList.remove("is-dragging");
+                note.style.animation = "";
+                note.style.translate = "";
+            }
+            activeDrag = null;
+        }
+
+        function startDrag(note, event) {
+            if (mobileLayout.matches || (event.pointerType === "mouse" && event.button !== 0)) {
+                return;
+            }
+
+            releaseNote(note);
+            note.classList.remove("is-rejected");
+            const noteBounds = note.getBoundingClientRect();
+            const layerBounds = notesLayer.getBoundingClientRect();
+            const centerX = noteBounds.left + noteBounds.width / 2;
+            const centerY = noteBounds.top + noteBounds.height / 2;
+
+            setFreePosition(note, centerX, centerY, layerBounds);
+            note.style.zIndex = String(++topLayer);
+            note.classList.add("is-dragging");
+            activeDrag = {
+                note,
+                pointerId: event.pointerId,
+                offsetX: event.clientX - centerX,
+                offsetY: event.clientY - centerY,
+                startX: event.clientX,
+                startY: event.clientY,
+                didMove: false
+            };
+
+            note.setPointerCapture(event.pointerId);
+            event.preventDefault();
+        }
+
+        function moveDrag(note, event) {
+            if (!activeDrag || activeDrag.note !== note || activeDrag.pointerId !== event.pointerId) {
+                return;
+            }
+
+            if (Math.hypot(event.clientX - activeDrag.startX, event.clientY - activeDrag.startY) > 5) {
+                activeDrag.didMove = true;
+            }
+            const maxX = notesLayer.clientWidth - note.offsetWidth / 2;
+            const maxY = notesLayer.clientHeight - note.offsetHeight / 2;
+            const layerBounds = notesLayer.getBoundingClientRect();
+            const centerX = event.clientX - layerBounds.left - activeDrag.offsetX;
+            const centerY = event.clientY - layerBounds.top - activeDrag.offsetY;
+
+            note.style.left = `${clamp(centerX, note.offsetWidth / 2, maxX)}px`;
+            note.style.top = `${clamp(centerY, note.offsetHeight / 2, maxY)}px`;
+            const targetSlot = findDropSlot(note);
+            highlightSlot(targetSlot, Boolean(targetSlot && targetSlot.dataset.slot !== note.dataset.matchSlot));
+        }
+
+        function moveWithKeyboard(note, event) {
+            if (mobileLayout.matches) {
+                return;
+            }
+
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                if (!noteSlots.has(note)) {
+                    const slot = findDropSlot(note);
+                    if (slot && slot.dataset.slot === note.dataset.matchSlot) {
+                        snapNote(note, slot);
+                    } else if (slot) {
+                        rejectNote(note);
+                        highlightSlot(null);
+                    }
+                }
+                return;
+            }
+
+            const movements = {
+                ArrowUp: [0, -1],
+                ArrowDown: [0, 1],
+                ArrowLeft: [-1, 0],
+                ArrowRight: [1, 0]
+            };
+            const movement = movements[event.key];
+            if (!movement) {
+                return;
+            }
+
+            event.preventDefault();
+            releaseNote(note);
+            const noteBounds = note.getBoundingClientRect();
+            const layerBounds = notesLayer.getBoundingClientRect();
+            const centerX = noteBounds.left + noteBounds.width / 2;
+            const centerY = noteBounds.top + noteBounds.height / 2;
+            setFreePosition(note, centerX, centerY, layerBounds);
+
+            const step = event.shiftKey ? 28 : 12;
+            const maxX = notesLayer.clientWidth - note.offsetWidth / 2;
+            const maxY = notesLayer.clientHeight - note.offsetHeight / 2;
+            note.style.left = `${clamp(centerX - layerBounds.left + movement[0] * step, note.offsetWidth / 2, maxX)}px`;
+            note.style.top = `${clamp(centerY - layerBounds.top + movement[1] * step, note.offsetHeight / 2, maxY)}px`;
+            note.style.zIndex = String(++topLayer);
+            const targetSlot = findDropSlot(note);
+            highlightSlot(targetSlot, Boolean(targetSlot && targetSlot.dataset.slot !== note.dataset.matchSlot));
+        }
+
+        function resetForMobile() {
+            if (!mobileLayout.matches) {
+                return;
+            }
+
+            activeDrag = null;
+            noteSlots.clear();
+            slotOwners.clear();
+            highlightSlot(null);
+            dropSlots.forEach((slot) => slot.classList.remove("is-filled", "is-wrong-target"));
+            notes.forEach((note) => {
+                note.classList.remove("is-dragging");
+                note.classList.remove("is-snapped");
+                note.classList.remove("is-rejected");
+                note.style.left = "";
+                note.style.top = "";
+                note.style.right = "";
+                note.style.bottom = "";
+                note.style.zIndex = "";
+                note.style.animation = "";
+                note.style.translate = "";
+            });
+            clearTimeout(celebrationTimer);
+            celebration.replaceChildren();
+            updateWinState();
+        }
+
+        notes.forEach((note) => {
+            note.addEventListener("pointerdown", (event) => startDrag(note, event));
+            note.addEventListener("pointermove", (event) => moveDrag(note, event));
+            note.addEventListener("pointerup", (event) => finishDrag(note, event));
+            note.addEventListener("pointercancel", (event) => finishDrag(note, event));
+            note.addEventListener("lostpointercapture", (event) => finishDrag(note, event));
+            note.addEventListener("keydown", (event) => moveWithKeyboard(note, event));
+            note.addEventListener("animationend", (event) => {
+                if (event.animationName !== "rejection-shake") {
+                    return;
+                }
+                note.classList.remove("is-rejected");
+                if (!note.classList.contains("is-dragging") && !note.classList.contains("is-snapped")) {
+                    note.style.animation = "";
+                    note.style.translate = "";
+                    note.style.zIndex = note.dataset.baseZIndex;
+                }
+            });
+        });
+
+        window.addEventListener("resize", resetForMobile, { passive: true });
+    </script>
+</body>
+</html>
