@@ -373,7 +373,7 @@
                 </li>
                 <li class="guide-step">
                     <span class="guide-number" aria-hidden="true">02</span>
-                    <div><h3>Submit or skip</h3><p>Submit to see feedback; the next prompt opens automatically after a short pause. MCQs allow two attempts, with half points for a correct second try. Use Skip to move on for 0 points.</p></div>
+                    <div><h3>Submit or skip</h3><p>Submit to see feedback; the next prompt opens automatically after a short pause. Multiple-choice questions allow one attempt; incorrect answers earn no points. Use Skip to move on for 0 points.</p></div>
                 </li>
                 <li class="guide-step">
                     <span class="guide-number" aria-hidden="true">03</span>
@@ -1366,17 +1366,12 @@ if (!drafts || typeof drafts !== "object" || Array.isArray(drafts)) drafts = {};
 if (!EXPERIENCE.some((item) => item.id === exp)) exp = null;
 if (!LEVELS.some((item) => item.id === level)) level = null;
 const earnedPoints = (p) => typeof solved[p.id] === "number" ? solved[p.id] : solved[p.id] ? pts(p) : 0;
-const attemptsFor = (p) => Number.isInteger(blockResults[p.id]?.attempts)
-    ? blockResults[p.id].attempts
-    : blockResults[p.id] ? 1 : 0;
-const awardedPoints = (p) => Math.floor(pts(p) * (
-    hintUsed[p.id] || (p.type === "quiz" && attemptsFor(p) > 1) ? 0.5 : 1
-));
+const awardedPoints = (p) => Math.floor(pts(p) * (hintUsed[p.id] ? 0.5 : 1));
+const resultLabel = (p, result) => p.type === "quiz"
+    ? result.passed ? "Correct" : "Incorrect"
+    : result.label;
 const pointsLabel = (p) => {
     if (solved[p.id]) return `${earnedPoints(p)} points earned`;
-    if (p.type === "quiz" && attemptsFor(p) === 1 && !blockResults[p.id]?.passed) {
-        return `${Math.floor(pts(p) / 2)} points on second try`;
-    }
     return hintUsed[p.id] ? `${awardedPoints(p)} points with hint` : `${pts(p)} points`;
 };
 const inLevel = (lv) => PROBLEMS.filter((p) => p.diff === lv);
@@ -1462,7 +1457,7 @@ function renderList() {
         b.appendChild(el("span", "tick", result ? "✓" : ""));
         const mid = el("span");
         mid.append(el("span", "item-title", `Q${index + 1}. ${p.title}`), el("span", "item-cat", p.cat));
-        if (result) mid.appendChild(el("span", "item-pattern", result.label));
+        if (result) mid.appendChild(el("span", "item-pattern", resultLabel(p, result)));
         else if (skipped[p.id]) mid.appendChild(el("span", "item-pattern", "Skipped · 0 points"));
         b.appendChild(mid);
         b.appendChild(el("span"));
@@ -1599,8 +1594,7 @@ function startPractice(pattern, restart = false) {
             delete skipped[p.id];
         });
     }
-    const nextProblem = problems.find((p) => p.type === "quiz" && attemptsFor(p) === 1 && !blockResults[p.id]?.passed && !skipped[p.id])
-        || problems.find((p) => !blockResults[p.id] && !skipped[p.id]);
+    const nextProblem = problems.find((p) => !blockResults[p.id] && !skipped[p.id]);
     if (!restart && problems.length && !nextProblem) { showBlockReview(); return; }
     activeId = (nextProblem || problems[0]).id;
     $("session-title").textContent = activePattern;
@@ -1640,7 +1634,7 @@ function showBlockReview() {
         const result = blockResults[p.id];
         const card = el("section", "review-card");
         const head = el("div", "review-card-head");
-        head.append(el("h2", "", `Q${index + 1}. ${p.title}`), el("span", "review-status", result ? result.label : skipped[p.id] ? "Skipped · 0 points" : "Not submitted"));
+        head.append(el("h2", "", `Q${index + 1}. ${p.title}`), el("span", "review-status", result ? resultLabel(p, result) : skipped[p.id] ? "Skipped · 0 points" : "Not submitted"));
         card.append(head, el("p", "prompt", p.prompt));
         if (!result) {
             card.appendChild(el("div", "review-answer locked", "Submit this question to reveal its answer."));
@@ -1648,8 +1642,6 @@ function showBlockReview() {
             const answer = el("div", "review-answer");
             answer.append(el("span", "review-answer-label", "One possible answer"), document.createTextNode(p.model));
             card.appendChild(answer);
-        } else if (p.type === "quiz" && !result.passed && attemptsFor(p) === 1 && !skipped[p.id]) {
-            card.appendChild(el("div", "review-answer locked", "One attempt remains. Return to practice to try again."));
         } else {
             const answer = el("div", "review-answer");
             const correct = p.options[p.answer];
@@ -1750,16 +1742,12 @@ function renderWork() {
 
     const results = el("div", "results");
     const savedResult = blockResults[p.id];
-    const quizLocked = p.type === "quiz" && (
-        savedResult?.passed || attemptsFor(p) >= 2 || skipped[p.id]
-    );
+    const quizLocked = p.type === "quiz" && (savedResult || skipped[p.id]);
     if (savedResult) {
         const summary = p.type === "write"
             ? `Previous submission: ${savedResult.label}. ${earnedPoints(p) ? `${earnedPoints(p)} points earned.` : "No points earned."}`
             : savedResult.passed
                 ? `Previous answer: correct. ${earnedPoints(p)} points earned.`
-                : attemptsFor(p) === 1 && !skipped[p.id]
-                    ? `Previous answer: not correct. One chance remains; a correct second try earns ${Math.floor(pts(p) / 2)} points.`
                 : "Previous answer: not correct. No points earned.";
         results.appendChild(el("div", `banner ${savedResult.passed ? "pass" : "fail"}`, summary));
     }
@@ -1810,8 +1798,6 @@ function renderWork() {
     if (quizLocked) {
         run.disabled = true;
         hint.disabled = true;
-    } else if (p.type === "quiz" && attemptsFor(p) === 1) {
-        run.textContent = "Try again";
     }
     const list0 = blockProblems();
     const pos = list0.findIndex((x) => x.id === p.id);
@@ -1857,23 +1843,12 @@ function renderWork() {
             const c = getInput();
             if (c === null) { results.appendChild(el("div", "banner fail", "Submit and answer to go to next question or skip the question")); return; }
             delete skipped[p.id];
-            const attempts = attemptsFor(p) + 1;
             pass = c === p.answer;
-            const label = pass
-                ? attempts > 1 ? "Correct · second try" : "Correct"
-                : attempts === 1 ? "Try again · 1 chance left" : "No points · 2 chances used";
-            blockResults[p.id] = { passed: pass, label, attempts };
+            blockResults[p.id] = { passed: pass, label: pass ? "Correct" : "Incorrect" };
             const earned = `${awardedPoints(p)} points${hintUsed[p.id] ? " with the hint" : ""}`;
-            if (!pass && attempts === 1) {
-                results.appendChild(el("div", "banner fail", `Not quite. One chance left; a correct second try earns ${Math.floor(pts(p) / 2)} points.`));
-                run.textContent = "Try again";
-                head.querySelector(".pts").textContent = pointsLabel(p);
-                renderList();
-                return;
-            }
             results.appendChild(el("div", "banner " + (pass ? "pass" : "fail"), pass
                 ? (solved[p.id] ? "Correct." : `Correct. You earned ${earned}.`)
-                : `No points this time. Correct answer: ${p.options[p.answer]}. ${p.explain}`));
+                : "Incorrect. No points earned."));
         }
         renderList();
         if (pass) {
