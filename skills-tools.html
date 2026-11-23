@@ -406,6 +406,8 @@
 
         .book-page {
             position: relative;
+            display: flex;
+            flex-direction: column;
             min-height: var(--book-page-min-height);
             padding: 22px 20px 20px;
             border: 1px solid rgba(23, 60, 59, .12);
@@ -430,16 +432,6 @@
             display: none !important;
         }
 
-        .book-pages.is-interactive {
-            position: relative;
-            min-height: var(--book-page-min-height);
-            perspective: 1200px;
-        }
-
-        .book-pages.is-interactive .book-page {
-            grid-area: 1 / 1;
-        }
-
         .book-page.is-clickable {
             cursor: pointer;
             transition: box-shadow 180ms ease;
@@ -451,6 +443,16 @@
                     inset 12px 0 17px -18px rgba(23, 60, 59, .8),
                     6px 6px 16px rgba(23, 60, 59, .14);
             }
+        }
+
+        .book-pages.is-interactive {
+            position: relative;
+            min-height: var(--book-page-min-height);
+            perspective: 1200px;
+        }
+
+        .book-pages.is-interactive .book-page {
+            grid-area: 1 / 1;
         }
 
         .page-meta {
@@ -496,28 +498,25 @@
         .book-items {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 7px;
-            margin: 19px 0 0;
-            padding: 0;
-            list-style: none;
+            column-gap: 22px;
+            row-gap: 5px;
+            margin: 16px 0 0;
+            padding-left: 18px;
+            list-style: disc;
         }
 
         .book-items li {
-            display: flex;
-            min-height: 34px;
-            align-items: center;
-            padding: 6px 9px;
-            border: 1px solid rgba(23, 60, 59, .1);
-            border-radius: 4px 11px 4px 4px;
+            display: list-item;
+            padding: 2px 0;
             color: var(--text);
-            background: rgba(228, 239, 174, .38);
-            font-size: 10px;
-            font-weight: 650;
-            line-height: 1.35;
+            font-family: var(--font-display);
+            font-size: 14px;
+            line-height: 1.4;
         }
 
-        .book[data-book="tools"] .book-items li {
-            background: rgba(215, 92, 69, .075);
+        .book-items li::marker {
+            color: var(--muted);
+            font-size: .8em;
         }
 
         .book-controls {
@@ -525,7 +524,8 @@
             align-items: center;
             justify-content: space-between;
             gap: 10px;
-            margin-top: 16px;
+            margin-top: auto;
+            padding-top: 16px;
         }
 
         .book-close {
@@ -709,13 +709,12 @@
             }
 
             .book-items {
-                gap: 6px;
+                column-gap: 16px;
+                row-gap: 5px;
             }
 
             .book-items li {
-                min-height: 32px;
-                padding: 5px 7px;
-                font-size: 9px;
+                font-size: 12px;
             }
 
             .book-controls {
@@ -831,11 +830,11 @@
 
 <body>
     <header class="site-header">
-        <a class="brand" href="index.html#about" aria-label="Sneha Pandey portfolio home">
+        <a class="brand" href="portfolio.html#about" aria-label="Sneha Pandey portfolio home">
             <span class="brand-mark" aria-hidden="true">SP</span>
             <span>Sneha Pandey</span>
         </a>
-        <a class="back-link" href="index.html#skills">← Back to portfolio</a>
+        <a class="back-link" href="portfolio.html#skills">← Back to portfolio</a>
     </header>
 
     <main class="page-shell">
@@ -911,6 +910,13 @@
                                     <li>DITA</li>
                                     <li>XML</li>
                                 </ul>
+                                <nav class="book-controls" aria-label="Skills chapter navigation" hidden>
+                                    <button class="page-button" type="button" data-previous disabled
+                                        aria-label="Previous skills category">← Previous</button>
+                                    <span class="book-status" data-status aria-live="polite">Page 1 of 4 · Documentation &amp; UX</span>
+                                    <button class="page-button" type="button" data-next disabled
+                                        aria-label="Next skills category">Next →</button>
+                                </nav>
                             </section>
                             <section class="book-page" data-page aria-labelledby="skill-page-2">
                                 <div class="page-meta"><span>Skills · Chapter 02</span><span class="page-number">02</span></div>
@@ -926,6 +932,13 @@
                                     <li>Prompt engineering</li>
                                     <li>Content creation</li>
                                 </ul>
+                                <nav class="book-controls" aria-label="Skills chapter navigation" hidden>
+                                    <button class="page-button" type="button" data-previous disabled
+                                        aria-label="Previous skills category">← Previous</button>
+                                    <span class="book-status" data-status aria-live="polite">Page 2 of 4 · Content strategy</span>
+                                    <button class="page-button" type="button" data-next disabled
+                                        aria-label="Next skills category">Next →</button>
+                                </nav>
                             </section>
                             <section class="book-page" data-page aria-labelledby="skill-page-3">
                                 <div class="page-meta"><span>Skills · Chapter 03</span><span class="page-number">03</span></div>
@@ -935,6 +948,13 @@
                                     <li>Team leadership</li>
                                     <li>Training &amp; mentoring</li>
                                 </ul>
+                                <nav class="book-controls" aria-label="Skills chapter navigation" hidden>
+                                    <button class="page-button" type="button" data-previous disabled
+                                        aria-label="Previous skills category">← Previous</button>
+                                    <span class="book-status" data-status aria-live="polite">Page 3 of 4 · Collaboration</span>
+                                    <button class="page-button" type="button" data-next disabled
+                                        aria-label="Next skills category">Next →</button>
+                                </nav>
                             </section>
                             <section class="book-page" data-page aria-labelledby="skill-page-4">
                                 <div class="page-meta"><span>Skills · Chapter 04</span><span class="page-number">04</span></div>
@@ -944,18 +964,18 @@
                                     <li>HTML</li>
                                     <li>CSS</li>
                                 </ul>
+                                <nav class="book-controls" aria-label="Skills chapter navigation" hidden>
+                                    <button class="page-button" type="button" data-previous disabled
+                                        aria-label="Previous skills category">← Previous</button>
+                                    <span class="book-status" data-status aria-live="polite">Page 4 of 4 · Web skills</span>
+                                    <button class="page-button" type="button" data-next disabled
+                                        aria-label="Next skills category">Next →</button>
+                                </nav>
                             </section>
                         </div>
                     </div>
-                    <nav class="book-controls" aria-label="Skills book page controls" hidden>
-                        <button class="page-button" type="button" data-previous disabled
-                            aria-label="Previous skills category">← Previous</button>
-                        <span class="book-status" data-status aria-live="polite">Page 1 of 4 · Documentation &amp; UX</span>
-                        <button class="page-button" type="button" data-next disabled
-                            aria-label="Next skills category">Next →</button>
-                    </nav>
                     <button class="book-close" type="button" data-close hidden>Close the Skills book</button>
-                    <p class="book-hint" hidden>Click the page or use the controls to turn it.</p>
+                    <p class="book-hint" hidden>Click the page or use Next to turn forward; use Previous to go back.</p>
                 </div>
             </article>
 
@@ -1021,6 +1041,13 @@
                                     <li>RoboHelp</li>
                                     <li>FrameMaker</li>
                                 </ul>
+                                <nav class="book-controls" aria-label="Tools chapter navigation" hidden>
+                                    <button class="page-button" type="button" data-previous disabled
+                                        aria-label="Previous tools category">← Previous</button>
+                                    <span class="book-status" data-status aria-live="polite">Page 1 of 4 · Documentation</span>
+                                    <button class="page-button" type="button" data-next disabled
+                                        aria-label="Next tools category">Next →</button>
+                                </nav>
                             </section>
                             <section class="book-page" data-page aria-labelledby="tool-page-2">
                                 <div class="page-meta"><span>Tools · Chapter 02</span><span class="page-number">02</span></div>
@@ -1034,6 +1061,13 @@
                                     <li>Google Sites</li>
                                     <li>Microsoft 365</li>
                                 </ul>
+                                <nav class="book-controls" aria-label="Tools chapter navigation" hidden>
+                                    <button class="page-button" type="button" data-previous disabled
+                                        aria-label="Previous tools category">← Previous</button>
+                                    <span class="book-status" data-status aria-live="polite">Page 2 of 4 · Collaboration &amp; delivery</span>
+                                    <button class="page-button" type="button" data-next disabled
+                                        aria-label="Next tools category">Next →</button>
+                                </nav>
                             </section>
                             <section class="book-page" data-page aria-labelledby="tool-page-3">
                                 <div class="page-meta"><span>Tools · Chapter 03</span><span class="page-number">03</span></div>
@@ -1043,6 +1077,13 @@
                                     <li>Adobe Creative Cloud</li>
                                     <li>Figma</li>
                                 </ul>
+                                <nav class="book-controls" aria-label="Tools chapter navigation" hidden>
+                                    <button class="page-button" type="button" data-previous disabled
+                                        aria-label="Previous tools category">← Previous</button>
+                                    <span class="book-status" data-status aria-live="polite">Page 3 of 4 · Design &amp; creativity</span>
+                                    <button class="page-button" type="button" data-next disabled
+                                        aria-label="Next tools category">Next →</button>
+                                </nav>
                             </section>
                             <section class="book-page" data-page aria-labelledby="tool-page-4">
                                 <div class="page-meta"><span>Tools · Chapter 04</span><span class="page-number">04</span></div>
@@ -1053,25 +1094,25 @@
                                     <li>GitHub Copilot</li>
                                     <li>Claude Code</li>
                                 </ul>
+                                <nav class="book-controls" aria-label="Tools chapter navigation" hidden>
+                                    <button class="page-button" type="button" data-previous disabled
+                                        aria-label="Previous tools category">← Previous</button>
+                                    <span class="book-status" data-status aria-live="polite">Page 4 of 4 · Development &amp; AI</span>
+                                    <button class="page-button" type="button" data-next disabled
+                                        aria-label="Next tools category">Next →</button>
+                                </nav>
                             </section>
                         </div>
                     </div>
-                    <nav class="book-controls" aria-label="Tools book page controls" hidden>
-                        <button class="page-button" type="button" data-previous disabled
-                            aria-label="Previous tools category">← Previous</button>
-                        <span class="book-status" data-status aria-live="polite">Page 1 of 4 · Documentation</span>
-                        <button class="page-button" type="button" data-next disabled
-                            aria-label="Next tools category">Next →</button>
-                    </nav>
                     <button class="book-close" type="button" data-close hidden>Close the Tools book</button>
-                    <p class="book-hint" hidden>Click the page or use the controls to turn it.</p>
+                    <p class="book-hint" hidden>Click the page or use Next to turn forward; use Previous to go back.</p>
                 </div>
             </article>
         </div>
 
         <footer class="page-footer">
             <span>Technical writing · Product content · User experience</span>
-            <a href="index.html#about">Back to Sneha’s portfolio</a>
+            <a href="portfolio.html#about">Back to Sneha’s portfolio</a>
         </footer>
     </main>
 
@@ -1081,10 +1122,10 @@
             const pages = [...pagesContainer.querySelectorAll('[data-page]')];
             const coverButton = book.querySelector('[data-open]');
             const closeButton = book.querySelector('[data-close]');
-            const controls = book.querySelector('.book-controls');
-            const previousButton = book.querySelector('[data-previous]');
-            const nextButton = book.querySelector('[data-next]');
-            const status = book.querySelector('[data-status]');
+            const controls = [...book.querySelectorAll('.book-controls')];
+            const previousButtons = [...book.querySelectorAll('[data-previous]')];
+            const nextButtons = [...book.querySelectorAll('[data-next]')];
+            const statuses = [...book.querySelectorAll('[data-status]')];
             const hint = book.querySelector('.book-hint');
             let currentPage = 0;
             let isOpen = false;
@@ -1096,19 +1137,26 @@
             pages.forEach((page, index) => { page.hidden = index !== currentPage; });
 
             const updateControls = () => {
-                previousButton.disabled = !isOpen || isTurning || currentPage === 0;
-                nextButton.disabled = !isOpen || isTurning || currentPage === pages.length - 1;
-                controls.hidden = !isOpen;
-                closeButton.hidden = !isOpen;
-                hint.hidden = !isOpen;
+                previousButtons.forEach(button => {
+                    button.disabled = !isOpen || isTurning || currentPage === 0;
+                });
+                nextButtons.forEach(button => {
+                    button.disabled = !isOpen || isTurning || currentPage === pages.length - 1;
+                });
+                controls.forEach((control, index) => {
+                    control.hidden = !isOpen || index !== currentPage;
+                });
                 pages.forEach((page, index) => {
                     page.classList.toggle(
                         'is-clickable',
                         isOpen && !isTurning && index === currentPage && currentPage < pages.length - 1
                     );
                 });
+                closeButton.hidden = !isOpen;
+                hint.hidden = !isOpen;
                 coverButton.setAttribute('aria-expanded', String(isOpen));
-                status.textContent = `Page ${currentPage + 1} of ${pages.length} · ${pages[currentPage].querySelector('h3').textContent}`;
+                const pageStatus = `Page ${currentPage + 1} of ${pages.length} · ${pages[currentPage].querySelector('h3').textContent}`;
+                statuses.forEach(status => { status.textContent = pageStatus; });
             };
 
             const animateCover = async opening => {
@@ -1151,6 +1199,8 @@
                 updateControls();
                 coverButton.hidden = false;
                 await animateCover(false);
+                currentPage = 0;
+                pages.forEach((page, index) => { page.hidden = index !== currentPage; });
                 pagesContainer.hidden = true;
                 isOpen = false;
                 isTurning = false;
@@ -1207,10 +1257,11 @@
                 currentPage = nextIndex;
                 isTurning = false;
                 updateControls();
+                pages[currentPage].querySelector('h3').focus({ preventScroll: true });
             };
 
-            previousButton.addEventListener('click', () => turnPage(-1));
-            nextButton.addEventListener('click', () => turnPage(1));
+            previousButtons.forEach(button => button.addEventListener('click', () => turnPage(-1)));
+            nextButtons.forEach(button => button.addEventListener('click', () => turnPage(1)));
             pages.forEach(page => {
                 page.addEventListener('click', event => {
                     if (event.target.closest('a, button, input, select, textarea')) return;

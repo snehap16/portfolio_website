@@ -714,6 +714,12 @@
             text-decoration: none;
         }
 
+        .idea-arrow::after {
+            position: absolute;
+            inset: -400px;
+            content: "";
+        }
+
         .idea-arrow:hover,
         .idea-arrow:focus-visible {
             background: var(--accent-strong);
@@ -1093,15 +1099,15 @@
             </section>
 
             <div class="side-stack" aria-label="Ideas and portfolio">
-                <section class="bento-tile idea-tile" data-cursor="IDEA" aria-label="A little idea in motion">
+                <section class="bento-tile idea-tile" data-cursor="PRACTICE" aria-label="Writers Lab: practice for technical writers">
                     <div class="shape-art" aria-hidden="true">
                         <span class="shape-orbit"></span>
                         <span class="shape-orbit shape-orbit-two"></span>
                         <span class="shape-core"></span>
                     </div>
-                    <span class="tile-label">A WORK IN PROGRESS</span>
-                    <p class="shape-caption">A little idea in motion.</p>
-                    <a class="about-arrow idea-arrow" href="work-in-progress.html" aria-label="See what I'm building">↗</a>
+                    <span class="tile-label">WRITERS LAB</span>
+                    <p class="shape-caption">Practice for technical writers.</p>
+                    <a class="about-arrow idea-arrow" href="writers-lab.html" aria-label="Open the Writers Lab">↗</a>
                 </section>
 
                 <a class="bento-tile portfolio-tile" href="portfolio.html" data-cursor="WORK"
