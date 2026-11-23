@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f2e7">
+    <meta property="og:image" content="https://snehapandey.com/snehapandey.png">
     <title>Writers Lab — Practice for Technical Writers</title>
     <style>
         :root {
@@ -177,6 +178,60 @@
         .review-answer-label { display: block; margin-bottom: 6px; color: var(--teal); font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
         .review-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
 
+        .final-score {
+            position: relative; isolation: isolate; overflow: hidden; max-width: 1080px; min-height: 570px;
+            display: grid; place-items: center; margin: 32px auto 0; padding: clamp(28px, 7vw, 72px);
+            border: 1px solid rgba(255, 253, 247, .18); border-radius: 36px;
+            background: radial-gradient(ellipse at 50% 0%, rgba(211, 233, 99, .2), transparent 42%),
+                radial-gradient(ellipse at 100% 100%, rgba(244, 126, 99, .18), transparent 38%), #123d3b;
+            box-shadow: 0 28px 80px rgba(18, 61, 59, .25); color: var(--surface); text-align: center;
+        }
+        .score-effects { position: absolute; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; }
+        .score-effects span {
+            position: absolute; top: -18px; left: var(--x); width: 9px; height: 13px; border-radius: 3px;
+            background: var(--particle); opacity: 0; animation: score-confetti var(--duration) var(--delay) ease-out forwards;
+        }
+        .score-content { position: relative; z-index: 1; width: min(100%, 650px); }
+        .score-kicker { color: var(--mint); font-size: .72rem; font-weight: 850; letter-spacing: .2em; text-transform: uppercase; }
+        .score-ring {
+            display: grid; width: clamp(170px, 28vw, 220px); aspect-ratio: 1; place-items: center; margin: 22px auto 12px;
+            border-radius: 50%; background: conic-gradient(var(--mint) var(--score-angle, 0%), rgba(255, 253, 247, .17) 0);
+            box-shadow: 0 0 55px rgba(211, 233, 99, .16); animation: score-arrive .9s cubic-bezier(.2, .8, .2, 1) both;
+        }
+        .score-ring-inner {
+            display: grid; width: calc(100% - 14px); height: calc(100% - 14px); align-content: center;
+            border: 1px solid rgba(255, 253, 247, .15); border-radius: 50%; background: #123d3b;
+        }
+        .score-percent { font-size: clamp(3rem, 8vw, 4.7rem); font-weight: 800; letter-spacing: -.08em; line-height: 1; font-variant-numeric: tabular-nums; }
+        .score-caption { margin-top: 7px; color: rgba(255, 253, 247, .7); font-size: .68rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+        .score-points { margin: 14px 0 0; color: var(--mint); font-size: .88rem; font-weight: 750; font-variant-numeric: tabular-nums; }
+        .final-score h1 { margin: 14px 0 0; font-size: clamp(2.2rem, 6vw, 4rem); letter-spacing: -.065em; line-height: 1; }
+        .score-message { margin: 14px auto 0; max-width: 540px; color: rgba(255, 253, 247, .82); line-height: 1.65; }
+        .score-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 26px; }
+        .final-score .btn { border-color: rgba(255, 253, 247, .35); background: rgba(255, 253, 247, .08); color: var(--surface); }
+        .final-score .btn.primary { border-color: var(--mint); background: var(--mint); color: var(--teal); }
+        .final-score[data-tier="master"] { animation: score-glow 2.4s ease-in-out infinite alternate; }
+        .final-score[data-tier="strong"] .score-ring { animation: score-arrive .9s cubic-bezier(.2, .8, .2, 1) both, score-pulse 2s 1s ease-in-out 2; }
+        @keyframes score-confetti {
+            0% { opacity: 0; transform: translateY(-12px) rotate(0) scale(.7); }
+            12% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(620px) rotate(680deg) scale(1); }
+        }
+        @keyframes score-arrive {
+            from { opacity: 0; transform: scale(.55) rotate(-35deg); }
+            to { opacity: 1; transform: scale(1) rotate(0); }
+        }
+        @keyframes score-pulse {
+            50% { box-shadow: 0 0 65px rgba(211, 233, 99, .48); transform: scale(1.045); }
+        }
+        @keyframes score-glow {
+            to { box-shadow: 0 28px 100px rgba(211, 233, 99, .2); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .final-score, .score-ring, .score-effects span { animation: none !important; }
+            .score-effects { display: none; }
+        }
+
         @media (max-width: 900px) {
             .layout { grid-template-columns: 1fr; }
             .list-panel { position: static; max-height: 420px; }
@@ -318,7 +373,7 @@
                 </li>
                 <li class="guide-step">
                     <span class="guide-number" aria-hidden="true">02</span>
-                    <div><h3>Submit or skip</h3><p>Submit to see feedback; the next prompt opens automatically after a short pause. Use Previous to revisit, or Skip to move on for 0 points.</p></div>
+                    <div><h3>Submit or skip</h3><p>Submit to see feedback; the next prompt opens automatically after a short pause. MCQs allow two attempts, with half points for a correct second try. Use Skip to move on for 0 points.</p></div>
                 </li>
                 <li class="guide-step">
                     <span class="guide-number" aria-hidden="true">03</span>
@@ -348,10 +403,8 @@
         <div class="session-bar">
             <h1 id="session-title"></h1>
             <div class="session-meta">
-                <span class="chip" id="session-exp"></span>
-                <span class="diff" id="session-level"></span>
                 <button type="button" class="btn" id="save-progress-practice">Save progress</button>
-                <button type="button" class="btn" id="change-block">Change block</button>
+                <button type="button" class="btn" id="change-block">Choose a block</button>
             </div>
         </div>
 
@@ -377,7 +430,27 @@
         <div class="review-actions">
             <button type="button" class="btn" id="save-progress-review">Save progress</button>
             <button type="button" class="btn primary" id="retry-block">Try this block again</button>
-            <button type="button" class="btn" id="choose-block">Choose another block</button>
+            <button type="button" class="btn" id="final-score-button">Final score</button>
+        </div>
+    </section>
+
+    <section class="final-score" id="final-score" hidden aria-labelledby="final-score-title">
+        <div class="score-effects" id="score-effects" aria-hidden="true"></div>
+        <div class="score-content">
+            <span class="score-kicker">Block complete · final score</span>
+            <div class="score-ring" id="score-ring" role="img" aria-label="Final score">
+                <div class="score-ring-inner">
+                    <span class="score-percent" id="final-score-percent"></span>
+                    <span class="score-caption">Your score</span>
+                </div>
+            </div>
+            <p class="score-points" id="final-score-points"></p>
+            <h1 id="final-score-title" tabindex="-1"></h1>
+            <p class="score-message" id="final-score-message"></p>
+            <div class="score-actions">
+                <button type="button" class="btn primary" id="score-review">Review answers</button>
+                <button type="button" class="btn" id="score-retry">Try this block again</button>
+            </div>
         </div>
     </section>
 </div>
@@ -1293,10 +1366,19 @@ if (!drafts || typeof drafts !== "object" || Array.isArray(drafts)) drafts = {};
 if (!EXPERIENCE.some((item) => item.id === exp)) exp = null;
 if (!LEVELS.some((item) => item.id === level)) level = null;
 const earnedPoints = (p) => typeof solved[p.id] === "number" ? solved[p.id] : solved[p.id] ? pts(p) : 0;
-const awardedPoints = (p) => Math.floor(pts(p) * (hintUsed[p.id] ? 0.5 : 1));
-const pointsLabel = (p) => solved[p.id]
-    ? `${earnedPoints(p)} points earned`
-    : hintUsed[p.id] ? `${awardedPoints(p)} points with hint` : `${pts(p)} points`;
+const attemptsFor = (p) => Number.isInteger(blockResults[p.id]?.attempts)
+    ? blockResults[p.id].attempts
+    : blockResults[p.id] ? 1 : 0;
+const awardedPoints = (p) => Math.floor(pts(p) * (
+    hintUsed[p.id] || (p.type === "quiz" && attemptsFor(p) > 1) ? 0.5 : 1
+));
+const pointsLabel = (p) => {
+    if (solved[p.id]) return `${earnedPoints(p)} points earned`;
+    if (p.type === "quiz" && attemptsFor(p) === 1 && !blockResults[p.id]?.passed) {
+        return `${Math.floor(pts(p) / 2)} points on second try`;
+    }
+    return hintUsed[p.id] ? `${awardedPoints(p)} points with hint` : `${pts(p)} points`;
+};
 const inLevel = (lv) => PROBLEMS.filter((p) => p.diff === lv);
 const quizPatternById = {
     "doc-types": "Content strategy & information architecture",
@@ -1403,12 +1485,13 @@ function showScreen(name) {
     $("onboard").hidden = !["exp", "level", "blocks"].includes(name);
     $("practice").hidden = name !== "practice";
     $("review").hidden = name !== "review";
+    $("final-score").hidden = name !== "final-score";
     $("progress-text").hidden = name !== "practice";
     $("score-text").hidden = name !== "practice";
     $("bar-wrap").hidden = name !== "practice";
     const stage = name === "exp" ? 1 : name === "level" ? 2 : name === "blocks" ? 3 : 4;
     ["1", "2", "3", "4"].forEach((n) => $("dot-" + n).classList.toggle("on", Number(n) <= stage));
-    const node = name === "practice" ? $("practice") : name === "review" ? $("review") : $("onboard");
+    const node = name === "practice" ? $("practice") : name === "review" ? $("review") : name === "final-score" ? $("final-score") : $("onboard");
     node.classList.remove("screen");
     void node.offsetWidth;
     node.classList.add("screen");
@@ -1516,15 +1599,11 @@ function startPractice(pattern, restart = false) {
             delete skipped[p.id];
         });
     }
-    const nextProblem = problems.find((p) => !blockResults[p.id]);
+    const nextProblem = problems.find((p) => p.type === "quiz" && attemptsFor(p) === 1 && !blockResults[p.id]?.passed && !skipped[p.id])
+        || problems.find((p) => !blockResults[p.id] && !skipped[p.id]);
     if (!restart && problems.length && !nextProblem) { showBlockReview(); return; }
-    const e = EXPERIENCE.find((x) => x.id === exp);
     activeId = (nextProblem || problems[0]).id;
     $("session-title").textContent = activePattern;
-    $("session-exp").textContent = e ? e.title : "";
-    const lv = $("session-level");
-    lv.className = "diff " + level;
-    lv.textContent = level;
     showScreen("practice");
     renderList();
     renderWork();
@@ -1533,7 +1612,8 @@ function startPractice(pattern, restart = false) {
 let currentScreen = "exp";
 
 $("nav-back").addEventListener("click", () => {
-    if (currentScreen === "practice" || currentScreen === "review") showBlocks();
+    if (currentScreen === "final-score") showScreen("review");
+    else if (currentScreen === "practice" || currentScreen === "review") showBlocks();
     else if (currentScreen === "blocks") showLevel();
     else if (currentScreen === "level") showExperience();
     else if (document.referrer && history.length > 1) history.back();
@@ -1568,6 +1648,8 @@ function showBlockReview() {
             const answer = el("div", "review-answer");
             answer.append(el("span", "review-answer-label", "One possible answer"), document.createTextNode(p.model));
             card.appendChild(answer);
+        } else if (p.type === "quiz" && !result.passed && attemptsFor(p) === 1 && !skipped[p.id]) {
+            card.appendChild(el("div", "review-answer locked", "One attempt remains. Return to practice to try again."));
         } else {
             const answer = el("div", "review-answer");
             const correct = p.options[p.answer];
@@ -1583,7 +1665,44 @@ function showBlockReview() {
     showScreen("review");
 }
 $("retry-block").addEventListener("click", () => startPractice(activePattern, true));
-$("choose-block").addEventListener("click", showBlocks);
+$("final-score-button").addEventListener("click", showFinalScore);
+$("score-review").addEventListener("click", () => showScreen("review"));
+$("score-retry").addEventListener("click", () => startPractice(activePattern, true));
+
+function showFinalScore() {
+    const problems = blockProblems();
+    const earned = problems.reduce((total, p) => total + earnedPoints(p), 0);
+    const maximum = problems.reduce((total, p) => total + pts(p), 0);
+    const percent = maximum ? Math.round(earned / maximum * 100) : 0;
+    const tier = percent >= 90 ? "master" : percent >= 70 ? "strong" : percent >= 40 ? "building" : "starting";
+    const verdicts = {
+        master: ["Outstanding work!", "You’ve shown a sharp command of this skill. Take a moment to enjoy that result."],
+        strong: ["Strong work!", "You’re building real momentum. A little more practice can take this even further."],
+        building: ["Good progress!", "You’ve got a solid start. Review the tricky answers and keep sharpening your skills."],
+        starting: ["Your next breakthrough starts here.", "Every expert starts somewhere. Review what you learned, then give this block another go."]
+    };
+    const [title, message] = verdicts[tier];
+    $("final-score").dataset.tier = tier;
+    $("score-ring").style.setProperty("--score-angle", `${percent}%`);
+    $("score-ring").setAttribute("aria-label", `Final score: ${percent}%`);
+    $("final-score-percent").textContent = `${percent}%`;
+    $("final-score-points").textContent = `${earned} / ${maximum} points · ${activePattern}`;
+    $("final-score-title").textContent = title;
+    $("final-score-message").textContent = message;
+    const effects = $("score-effects");
+    effects.replaceChildren();
+    const particleCount = tier === "master" ? 36 : tier === "strong" ? 22 : tier === "building" ? 10 : 4;
+    for (let i = 0; i < particleCount; i++) {
+        const particle = el("span");
+        particle.style.setProperty("--x", `${Math.random() * 100}%`);
+        particle.style.setProperty("--delay", `${Math.random() * 1.1}s`);
+        particle.style.setProperty("--duration", `${2.2 + Math.random() * 1.8}s`);
+        particle.style.setProperty("--particle", i % 2 ? "var(--coral)" : "var(--mint)");
+        effects.appendChild(particle);
+    }
+    showScreen("final-score");
+    $("final-score-title").focus();
+}
 
 /* ---------- problem view ---------- */
 function renderWork() {
@@ -1631,11 +1750,16 @@ function renderWork() {
 
     const results = el("div", "results");
     const savedResult = blockResults[p.id];
+    const quizLocked = p.type === "quiz" && (
+        savedResult?.passed || attemptsFor(p) >= 2 || skipped[p.id]
+    );
     if (savedResult) {
         const summary = p.type === "write"
             ? `Previous submission: ${savedResult.label}. ${earnedPoints(p) ? `${earnedPoints(p)} points earned.` : "No points earned."}`
             : savedResult.passed
                 ? `Previous answer: correct. ${earnedPoints(p)} points earned.`
+                : attemptsFor(p) === 1 && !skipped[p.id]
+                    ? `Previous answer: not correct. One chance remains; a correct second try earns ${Math.floor(pts(p) / 2)} points.`
                 : "Previous answer: not correct. No points earned.";
         results.appendChild(el("div", `banner ${savedResult.passed ? "pass" : "fail"}`, summary));
     }
@@ -1671,6 +1795,7 @@ function renderWork() {
             const lab = el("label", "option");
             const r = el("input");
             r.type = "radio"; r.name = "choice"; r.value = i;
+            r.disabled = quizLocked;
             lab.append(r, el("span", "", o));
             fs.appendChild(lab);
         });
@@ -1682,6 +1807,12 @@ function renderWork() {
     const run = el("button", "btn primary", "Submit");
     const hint = el("button", "btn", "Hint");
     const reset = el("button", "btn", "Reset");
+    if (quizLocked) {
+        run.disabled = true;
+        hint.disabled = true;
+    } else if (p.type === "quiz" && attemptsFor(p) === 1) {
+        run.textContent = "Try again";
+    }
     const list0 = blockProblems();
     const pos = list0.findIndex((x) => x.id === p.id);
     const isLast = pos === list0.length - 1;
@@ -1726,10 +1857,23 @@ function renderWork() {
             const c = getInput();
             if (c === null) { results.appendChild(el("div", "banner fail", "Submit and answer to go to next question or skip the question")); return; }
             delete skipped[p.id];
+            const attempts = attemptsFor(p) + 1;
             pass = c === p.answer;
-            blockResults[p.id] = { passed: pass, label: pass ? "Correct" : "Try again" };
+            const label = pass
+                ? attempts > 1 ? "Correct · second try" : "Correct"
+                : attempts === 1 ? "Try again · 1 chance left" : "No points · 2 chances used";
+            blockResults[p.id] = { passed: pass, label, attempts };
             const earned = `${awardedPoints(p)} points${hintUsed[p.id] ? " with the hint" : ""}`;
-            results.appendChild(el("div", "banner " + (pass ? "pass" : "fail"), pass ? (solved[p.id] ? "Correct." : `Correct. You earned ${earned}.`) : "Not quite. Try again."));
+            if (!pass && attempts === 1) {
+                results.appendChild(el("div", "banner fail", `Not quite. One chance left; a correct second try earns ${Math.floor(pts(p) / 2)} points.`));
+                run.textContent = "Try again";
+                head.querySelector(".pts").textContent = pointsLabel(p);
+                renderList();
+                return;
+            }
+            results.appendChild(el("div", "banner " + (pass ? "pass" : "fail"), pass
+                ? (solved[p.id] ? "Correct." : `Correct. You earned ${earned}.`)
+                : `No points this time. Correct answer: ${p.options[p.answer]}. ${p.explain}`));
         }
         renderList();
         if (pass) {
@@ -1746,6 +1890,10 @@ function renderWork() {
         run.disabled = true;
         reset.disabled = true;
         hint.disabled = true;
+        if (p.type === "quiz") {
+            run.textContent = "Answer submitted";
+            host.querySelectorAll('input[name="choice"]').forEach((input) => { input.disabled = true; });
+        }
         results.appendChild(el("p", "advance-note", isLast ? "Opening block review…" : "Moving on automatically…"));
         advanceTimer = window.setTimeout(() => {
             advanceTimer = null;
@@ -1789,6 +1937,10 @@ function renderWork() {
     });
 
     reset.addEventListener("click", () => {
+        if (p.type === "quiz") {
+            host.querySelectorAll('input[name="choice"]').forEach((input) => { input.checked = false; });
+            return;
+        }
         delete drafts[p.id];
         delete solved[p.id];
         delete blockResults[p.id];
