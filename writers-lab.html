@@ -3,12 +3,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Practice real-world technical writing assessments, test your skills, and get better at documentation with Writer's Lab.">
+    <meta name="description" content="Practice technical writing assessments in style, information structure, API documentation, and audience-focused writing at Writer's Lab by Sneha Pandey.">
+    <link rel="canonical" href="https://snehapandey.com/writers-lab">
     <meta name="theme-color" content="#f7f2e7">
-    <meta property="og:title" content="Writer's Lab | Practice for Technical Writers">
-    <meta property="og:description" content="Practice real-world technical writing assessments, test your skills, and get better at documentation.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://snehapandey.com/writers-lab">
+    <meta property="og:title" content="Writer's Lab | Technical Writing Practice">
+    <meta property="og:description" content="Practice technical writing assessments in style, information structure, API documentation, and audience-focused writing at Writer's Lab by Sneha Pandey.">
     <meta property="og:image" content="https://snehapandey.com/snehapandey.png">
-    <title>Writer's Lab | Practice for Technical Writers</title>
+    <meta property="og:image:alt" content="Writer's Lab, technical writing practice by Sneha Pandey">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Writer's Lab | Technical Writing Practice">
+    <meta name="twitter:description" content="Practice technical writing assessments in style, information structure, API documentation, and audience-focused writing at Writer's Lab by Sneha Pandey.">
+    <meta name="twitter:image" content="https://snehapandey.com/snehapandey.png">
+    <title>Writer's Lab | Technical Writing Practice</title>
     <style>
         :root {
             color-scheme: light;
@@ -212,7 +220,7 @@
             <p class="hero-copy">Software engineers use platforms like LeetCode to practice coding and prepare for interviews. Technical writers usually get a take-home writing test with little guidance on how hiring teams evaluate it.</p>
             <p class="hero-copy">Writer’s Lab gives you a place to practice. Solve realistic documentation problems, test your editing decisions, and prepare for technical writing interviews.</p>
             <div class="hero-actions">
-                <a class="button primary" href="writers-lab-exercises.html" data-exercise-page>Browse exercises <span class="arrow" aria-hidden="true">↗</span></a>
+                <a class="button primary" href="writers-lab-exercises.html">Browse exercises <span class="arrow" aria-hidden="true">↗</span></a>
                 <a class="button" href="#how-it-works">See how it works <span class="arrow" aria-hidden="true">↓</span></a>
             </div>
         </div>
@@ -296,7 +304,7 @@
                     <p>Compare your work with recommended structures, style rules, and editorial criteria.</p>
                 </article>
             </div>
-            <a class="button primary" href="writers-lab-exercises.html" data-exercise-page>Choose an exercise <span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="button primary" href="writers-lab-exercises.html">Choose an exercise <span class="arrow" aria-hidden="true">↗</span></a>
         </div>
     </section>
 
@@ -352,11 +360,6 @@
     <a href="index.html">Sneha Pandey’s portfolio</a>
 </footer>
 <script>
-const exercisePage = window.location.protocol === "file:" ? "writers-lab-exercises.html" : "/writers-lab";
-document.querySelectorAll("[data-exercise-page]").forEach((link) => {
-    link.href = exercisePage;
-});
-
 const feedbackForm = document.getElementById("feedback-form");
 const feedbackStatus = document.getElementById("feedback-status");
 
